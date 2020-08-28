@@ -1,0 +1,660 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Appium简明教程之Android篇 - 火烛一隅</title>
+<link rel="shortcut icon" href="https://usergwen.github.io/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://usergwen.github.io/media/css/tailwind.css">
+<link rel="stylesheet" href="https://usergwen.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Appium简明教程之Android篇 - 火烛一隅 - Atom Feed" href="https://usergwen.github.io/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127207424-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-127207424-1');
+  </script>
+    
+
+  <meta name="description" content="这是一份基于python语言，从Appium环境配置到Appium可以在Android移动设备上进行功能自动化测试的一份简明教程，主要学习内容如下：
+
+简单了解Appium在Android设备上的工作流程
+如何使用Android Studi..." />
+  <meta property="og:title" content="Appium简明教程之Android篇 - 火烛一隅">
+  <meta property="og:description" content="这是一份基于python语言，从Appium环境配置到Appium可以在Android移动设备上进行功能自动化测试的一份简明教程，主要学习内容如下：
+
+简单了解Appium在Android设备上的工作流程
+如何使用Android Studi..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://usergwen.github.io/UD1_q0jy9/" />
+  <meta property="og:image" content="https://usergwen.github.io/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Appium简明教程之Android篇 - 火烛一隅">
+  <meta name="twitter:description" content="这是一份基于python语言，从Appium环境配置到Appium可以在Android移动设备上进行功能自动化测试的一份简明教程，主要学习内容如下：
+
+简单了解Appium在Android设备上的工作流程
+如何使用Android Studi...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://usergwen.github.io/UD1_q0jy9/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://usergwen.github.io/media/css/prism-vs-light.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://usergwen.github.io" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      火烛一隅
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Appium简明教程之Android篇
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-08-28 · 10 min read</div>
+          
+            <a href="https://usergwen.github.io/EUSNzxhBE/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              python
+            </a>
+          
+            <a href="https://usergwen.github.io/bsgfMSpT94/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              appium
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>这是一份基于python语言，从Appium环境配置到Appium可以在Android移动设备上进行功能自动化测试的一份简明教程，主要学习内容如下：</p>
+<ul>
+<li>简单了解Appium在Android设备上的工作流程</li>
+<li>如何使用Android Studio提供的Emulator模拟器</li>
+<li>如何使用Appium Desktop进行UI元素定位和用例录制</li>
+<li>如何通过Python+Appium对Android设备上的应用进行UI自动化测试</li>
+</ul>
+<!-- more -->
+<p>下面是这份教程的章节内容，主要包含：</p>
+<ul>
+<li>导读部分：Appium在Android设备上的工作流程</li>
+<li>第一部分：JDK，SDK在Windows平台上的安装和环境配置</li>
+<li>第二部分：ADB命令的简单介绍</li>
+<li>第三部分：Appium Server，Appium Desktop的安装和环境检查</li>
+<li>第四部分：通过Appium Desktop录制用例脚本并执行</li>
+<li>第五部分：从设计模式角度重新组织用力脚本代码</li>
+</ul>
+<p>涉及到的演示apk和client是：</p>
+<ul>
+<li>apk：<a href="https://github.com/appium/appium/tree/master/sample-code/apps">ApiDemos-debug.apk</a></li>
+<li>client: <a href="https://pypi.org/project/Appium-Python-Client/">Appium-Python-Client</a></li>
+</ul>
+<h1 id="appium在android设备上的工作流程">Appium在Android设备上的工作流程</h1>
+<figure data-type="image" tabindex="1"><img src="https://usergwen.github.io/post-images/1598567517236.jpg" alt="" loading="lazy"></figure>
+<h1 id="android开发环境配置">Android开发环境配置</h1>
+<h2 id="jdk环境配置">JDK环境配置</h2>
+<ul>
+<li>下载jdk1.8版本：<a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">jdk-8u261-windows-x64.exe</a><br>
+<img src="https://usergwen.github.io/post-images/1598560957011.PNG" alt="" loading="lazy"></li>
+<li>安装jdk1.8版本：<br>
+（牢记jdk的安装目录，建议在非系统盘下专门创建java文件夹安装，记住前半句即可，后半句可以忽略）<br>
+<img src="https://usergwen.github.io/post-images/1598561308842.PNG" alt="" loading="lazy"></li>
+<li>配置jdk环境变量：</li>
+</ul>
+<p>主要的变量需要配置三处，分别是：</p>
+<p><code>JAVAHOME</code>: <code>D:\program_install\Java\jdk18</code></p>
+<p><code>CLASSPATH</code>: <code>.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;</code></p>
+<p><code>Add To System Path</code>: <code>%JAVA_HOME%\bin</code>, <code>%JAVA_HOME%\jre\bin</code></p>
+<p>配置步骤如下：</p>
+<p>右键<code>此电脑</code> 选择 <code>属性</code>:<br>
+<img src="https://usergwen.github.io/post-images/1598561732493.PNG" alt="" loading="lazy"></p>
+<p>点击<code>高级系统设置</code>:<br>
+<img src="https://usergwen.github.io/post-images/1598561766816.PNG" alt="" loading="lazy"></p>
+<p>点击<code>环境变量</code>:<br>
+<img src="https://usergwen.github.io/post-images/1598561837568.PNG" alt="" loading="lazy"></p>
+<p>在系统变量区域，选择新建<code>JAVA_HOME</code>, <code>CLASSPATH</code>，点击<code>确定</code>:<br>
+<img src="https://usergwen.github.io/post-images/1598562044603.PNG" alt="" loading="lazy"><br>
+<img src="https://usergwen.github.io/post-images/1598562087104.PNG" alt="" loading="lazy"></p>
+<p>最后在系统<code>Path</code>中增加<code>jdk</code>和<code>jre</code>的路径：<br>
+<img src="https://usergwen.github.io/post-images/1598562301452.PNG" alt="" loading="lazy"></p>
+<ul>
+<li>验证jdk环境是否正确</li>
+</ul>
+<p>打开<code>cmd</code>或者<code>powershell</code>输入：</p>
+<pre><code class="language-bash">$ java --version
+$ javac --version
+</code></pre>
+<p>如果出现下面的信息，证明jdk环境已经配置成功：</p>
+<pre><code class="language-bash">PS C:\Users\96403&gt; java -version
+java version &quot;1.8.0_261&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_261-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)
+PS C:\Users\96403&gt; javac -version
+javac 1.8.0_261
+PS C:\Users\96403&gt;
+</code></pre>
+<h2 id="sdk环境配置">SDK环境配置</h2>
+<p>获取<code>SDK</code>有两种方式，一种是只下载<code>sdk tool</code>，另外一种是通过安装<code>Android Studio</code>来使用<code>SDK Manager</code>进行安装；<br>
+因为，后面需要用到<code>Emulator</code>模拟器和<code>Apkanalyzer</code>，因此推荐直接安装<code>Android Studio</code>，方便快捷；</p>
+<ul>
+<li>下载<code>Android Studio</code>：</li>
+</ul>
+<p><a href="https://developer.android.google.cn/studio">4.0.1 for Windows 64-bit (871 MB)</a></p>
+<p><a href="http://www.android-studio.org/index.php/download/about-androidstudio">Android Studio中文社区</a>  - 如果官网下载不了的可以选择此链接，后续可以升级</p>
+<p>（安装时，切记勾选<code>SDK Tools</code>中的<code>Android Emulator</code>，否则无法使用模拟器）</p>
+<ul>
+<li>配置<code>sdk</code>环境:</li>
+</ul>
+<p>同样根据<code>jdk</code>配置进入环境变量，配置<code>ANDROID_HOME</code>:<br>
+<img src="https://usergwen.github.io/post-images/1598563371686.PNG" alt="" loading="lazy"></p>
+<p>继续在<code>Path</code>中添加:<br>
+<img src="https://usergwen.github.io/post-images/1598563444174.PNG" alt="" loading="lazy"></p>
+<ul>
+<li>检查<code>sdk</code>环境:</li>
+</ul>
+<p>同样的，打开<code>cmd</code>或者<code>powershell</code>输入：</p>
+<pre><code class="language-bash">$ adb
+$ aapt
+</code></pre>
+<p>上面两个命令没有报错，证明sdk环境变量配置成功。</p>
+<blockquote>
+<p>至此，Android开发环境配置完成。</p>
+</blockquote>
+<h1 id="adb命令的简单介绍">ADB命令的简单介绍</h1>
+<p>（详细教程参考官网：<a href="https://developer.android.com/studio/command-line/adb?hl=pt-br">Android Debug Bridge (adb)</a>）</p>
+<p>因为，使用appium的时候，需要应用的一些信息，这些信息可以通过adb命令很容易获取到：</p>
+<pre><code class="language-bash"># 检查设备
+$ adb devices
+
+# 获取app的入口信息（需要手动启动测试app）
+$ adb logcat | grep -i displayed
+</code></pre>
+<p>上面两行命令可以获取到的信息如下：</p>
+<pre><code class="language-bash">$ adb devices
+List of devices attached
+emulator-5554   device
+
+$ adb logcat | grep -i displayed
+08-27 16:53:34.596  2006  2039 I ActivityTaskManager: Displayed com.android.settings/.FallbackHome: +439ms
+08-27 16:53:39.736  2006  2039 I ActivityTaskManager: Displayed com.google.android.apps.nexuslauncher/.NexusLauncherActivity: +1s912ms
+08-27 17:44:53.805  2006  2039 I ActivityTaskManager: Displayed com.xueqiu.android/.view.WelcomeActivityAlias: +927ms
+</code></pre>
+<h1 id="安装appium">安装Appium</h1>
+<h2 id="安装appium-desktop">安装Appium Desktop</h2>
+<ul>
+<li>下载地址：<a href="https://github.com/appium/appium-desktop/releases/tag/v1.18.0-1">Appium Desktop Latest Release v1.18.0-1</a></li>
+<li>启动Appium Desktop：<br>
+<img src="https://usergwen.github.io/post-images/1598608851223.PNG" alt="" loading="lazy"><br>
+<img src="https://usergwen.github.io/post-images/1598608857304.PNG" alt="" loading="lazy"></li>
+<li>UI元素查找：<br>
+点击右上角查找按钮<br>
+<img src="https://usergwen.github.io/post-images/1598609515233.PNG" alt="" loading="lazy"><br>
+填写需要参数信息</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;platformName&quot;: &quot;android&quot;,
+  &quot;deviceName&quot;: &quot;emulator-5554&quot;,
+  &quot;automationName&quot;: &quot;uiautomator2&quot;,
+  &quot;appPackage&quot;: &quot;com.xueqiu.android&quot;,
+  &quot;appActivity&quot;: &quot;.view.WelcomeActivityAlias&quot;
+}
+</code></pre>
+<p>启动Emulator：<br>
+<img src="https://usergwen.github.io/post-images/1598609975367.png" alt="" loading="lazy"><br>
+<img src="https://usergwen.github.io/post-images/1598609979983.png" alt="" loading="lazy"><br>
+<img src="https://usergwen.github.io/post-images/1598609983476.png" alt="" loading="lazy"><br>
+启动Appium会话：<br>
+<img src="https://usergwen.github.io/post-images/1598610458320.png" alt="" loading="lazy"><br>
+<img src="https://usergwen.github.io/post-images/1598610463577.png" alt="" loading="lazy"><br>
+录制用例脚本：<br>
+<img src="https://usergwen.github.io/post-images/1598610628411.png" alt="" loading="lazy"><br>
+<img src="https://usergwen.github.io/post-images/1598610633250.png" alt="" loading="lazy"><br>
+复制录制的脚本代码：<br>
+<img src="https://usergwen.github.io/post-images/1598610774501.png" alt="" loading="lazy"></p>
+<pre><code class="language-python"># This sample code uses the Appium python client
+# pip install Appium-Python-Client
+# Then you can paste this into a file and simply run with Python
+
+from appium import webdriver
+
+caps = {}
+caps[&quot;platformName&quot;] = &quot;android&quot;
+caps[&quot;deviceName&quot;] = &quot;emulator-5554&quot;
+caps[&quot;automationName&quot;] = &quot;uiautomator2&quot;
+caps[&quot;appPackage&quot;] = &quot;io.appium.android.apis&quot;
+caps[&quot;appActivity&quot;] = &quot;.ApiDemos&quot;
+caps[&quot;ensureWebviewsHavePages&quot;] = True
+
+driver = webdriver.Remote(&quot;http://localhost:4723/wd/hub&quot;, caps)
+
+el1 = driver.find_element_by_accessibility_id(&quot;Access'ibility&quot;)
+el1.click()
+el2 = driver.find_element_by_accessibility_id(&quot;Custom View&quot;)
+el2.click()
+el3 = driver.find_element_by_xpath(&quot;/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.view.View[1]&quot;)
+el3.click()
+driver.back()
+driver.back()
+
+driver.quit()
+</code></pre>
+<blockquote>
+<p>以上是Appium Desktop的基本用法，包含UI元素查找和用例脚本录制</p>
+</blockquote>
+<h2 id="安装appium-server">安装Appium Server</h2>
+<p>官网中给出的也是appium server的安装方式，事实上，问题会出的最多的还是在appium server的安装上，不仅是因为网络的问题，还依赖于nodejs，nodejs还依赖于python2，所以，先从官方指南开始，看看需要安装哪些环境：</p>
+<pre><code class="language-bash">&gt; brew install node      # get node.js
+&gt; npm install -g appium  # get appium
+&gt; npm install wd         # get appium client
+&gt; appium &amp;               # start appium
+&gt; node your-appium-test.js
+</code></pre>
+<p>从上面可以提炼出如下安装清单：</p>
+<ul>
+<li>nodejs</li>
+<li>appium</li>
+</ul>
+<h3 id="安装nodejs">安装nodejs</h3>
+<p>在windows平台下，最方便的还是直接下载LTS长期支持版的<a href="https://nodejs.org/zh-cn/">nodej</a>s的<code>.exe</code>包：<br>
+<img src="https://usergwen.github.io/post-images/1598611240267.png" alt="" loading="lazy"></p>
+<p>在安装过程中切记勾选下面的选项：<br>
+<img src="https://usergwen.github.io/post-images/1598611323687.png" alt="" loading="lazy"></p>
+<p>安装完成后依然是前往环境变量在<code>Path</code>中添加安装目录：<br>
+<img src="https://usergwen.github.io/post-images/1598611443884.png" alt="" loading="lazy"></p>
+<p>如此，<code>npm</code>命令才能在<code>git bash</code>或者<code>cmd</code>中正常调用：</p>
+<pre><code class="language-bash">$ npm -v
+6.14.6
+</code></pre>
+<p>另外考虑到网络问题，建议设置npm的源为淘宝源：</p>
+<pre><code class="language-bash"># 1.临时使用
+$ npm --registry https://registry.npm.taobao.org install express
+ 
+# 2.持久使用
+$ npm config set registry https://registry.npm.taobao.org
+ 
+# 配置后可通过下面方式来验证是否成功
+$ npm config get registry
+# 或
+$ npm info express
+ 
+# 3.通过cnpm使用
+$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+# 使用
+$ cnpm install express
+</code></pre>
+<p>另外介绍两个npm包，一个是<code>nvm</code>，一个是<code>nrm</code>:</p>
+<pre><code class="language-bash"># 1. nvm - nodejs版本管理工具
+# https://github.com/nvm-sh/nvm
+$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+# 2. nrm - nodejs源管理工具
+# https://www.npmjs.com/package/nrm
+$ npm install -g nrm
+</code></pre>
+<h3 id="安装appium-server-2">安装appium server</h3>
+<pre><code class="language-bash"># 1.获取Appium
+$ npm install -g appium 
+# 2.获取Appium Doctor
+$ npm install -g appium-doctor
+$ appium-doctor --android 
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://usergwen.github.io/post-images/1598612831316.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p>至此，appium关于android的开发环境已经全部安装完成</p>
+</blockquote>
+<h1 id="使用appiumdesktop录制一个可用的用例脚本">使用AppiumDesktop录制一个可用的用例脚本</h1>
+<p>录制脚本如下：</p>
+<pre><code class="language-python"># This sample code uses the Appium python client
+# pip install Appium-Python-Client
+# Then you can paste this into a file and simply run with Python
+
+from appium import webdriver
+
+caps = {}
+caps[&quot;platformName&quot;] = &quot;android&quot;
+caps[&quot;deviceName&quot;] = &quot;emulator-5554&quot;
+caps[&quot;automationName&quot;] = &quot;uiautomator2&quot;
+caps[&quot;appPackage&quot;] = &quot;io.appium.android.apis&quot;
+caps[&quot;appActivity&quot;] = &quot;.ApiDemos&quot;
+caps[&quot;ensureWebviewsHavePages&quot;] = True
+
+driver = webdriver.Remote(&quot;http://localhost:4723/wd/hub&quot;, caps)
+
+el1 = driver.find_element_by_accessibility_id(&quot;Access'ibility&quot;)
+el1.click()
+el2 = driver.find_element_by_accessibility_id(&quot;Custom View&quot;)
+el2.click()
+el3 = driver.find_element_by_xpath(&quot;/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.view.View[1]&quot;)
+el3.click()
+driver.back()
+driver.back()
+el4 = driver.find_element_by_accessibility_id(&quot;Text&quot;)
+el4.click()
+el5 = driver.find_element_by_accessibility_id(&quot;KeyEventText&quot;)
+el5.click()
+el6 = driver.find_element_by_id(&quot;io.appium.android.apis:id/text&quot;)
+el6.click()
+el6.send_keys(&quot;你好，Appium！&quot;)
+el7 = driver.find_element_by_accessibility_id(&quot;Clear&quot;)
+el7.click()
+
+driver.quit()
+</code></pre>
+<p>上面这个脚本，只要执行流程就是，选择app中的文本框，输入一段文字，再清除所输入内容，退出app。<br>
+可以直接粘贴到pycharm或者vscode中执行一下，知道调整代码，能够正确执行上面的用例脚本。</p>
+<h1 id="重新组织录制脚本代码">重新组织录制脚本代码</h1>
+<p><code>function - init_app()</code></p>
+<pre><code class="language-python">from appium import webdriver
+
+
+def init_app():
+    caps = {
+        &quot;platformName&quot;: &quot;android&quot;,
+        &quot;deviceName&quot;: &quot;emulator-5554&quot;,
+        &quot;automationName&quot;: &quot;uiautomator2&quot;,
+        &quot;appPackage&quot;: &quot;io.appium.android.apis&quot;,
+        &quot;appActivity&quot;: &quot;.ApiDemos&quot;,
+        &quot;ensureWebviewsHavePages&quot;: True
+    }
+    driver = webdriver.Remote(&quot;http://127.0.0.1:4723/wd/hub&quot;, caps)
+    return driver
+</code></pre>
+<p><code>funtion - click_el()</code></p>
+<pre><code class="language-python">from appium import webdriver
+
+
+def click_el(by, el):
+    return driver.find_element(by, el).click()
+</code></pre>
+<p><code>function - send_key_to_el()</code></p>
+<pre><code class="language-python">from appium import webdriver
+
+
+def send_key_to_el(by, el, text):
+    rs = driver.find_element(by, el)
+    return rs.send_keys(text)
+</code></pre>
+<p><code>test_api_demo_text.py</code></p>
+<pre><code class="language-python">from util.utils import click_el, driver, send_key_to_el
+
+
+def test_api_demo_text():
+    click_el(&quot;accessibility_id&quot;, &quot;Access'ibility&quot;)
+    click_el(&quot;accessibility_id&quot;, &quot;Custom View&quot;)
+    click_el(&quot;xpath&quot;,
+             &quot;/hierarchy/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.LinearLayout/android.view.View[1]&quot;)
+    driver.back()
+    driver.back()
+    click_el(&quot;accessibility_id&quot;, &quot;Text&quot;)
+    click_el(&quot;accessibility_id&quot;, &quot;KeyEventText&quot;)
+    send_key_to_el(&quot;id&quot;, &quot;io.appium.android.apis:id/text&quot;, &quot;你好，Appium！&quot;)
+    click_el(&quot;accessibility_id&quot;, &quot;Clear&quot;)
+
+    driver.quit()
+</code></pre>
+<blockquote>
+<p>上面是简单封装后的用例，可以优化的空间非常大，比如yaml管理参数等等，这里就暂且不一一赘述了。</p>
+</blockquote>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  故火烛一隅，则室偏无关
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#appium%E5%9C%A8android%E8%AE%BE%E5%A4%87%E4%B8%8A%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">Appium在Android设备上的工作流程</a></li>
+<li><a href="#android%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">Android开发环境配置</a>
+<ul>
+<li><a href="#jdk%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">JDK环境配置</a></li>
+<li><a href="#sdk%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">SDK环境配置</a></li>
+</ul>
+</li>
+<li><a href="#adb%E5%91%BD%E4%BB%A4%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D">ADB命令的简单介绍</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85appium">安装Appium</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85appium-desktop">安装Appium Desktop</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85appium-server">安装Appium Server</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85nodejs">安装nodejs</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85appium-server-2">安装appium server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BD%BF%E7%94%A8appiumdesktop%E5%BD%95%E5%88%B6%E4%B8%80%E4%B8%AA%E5%8F%AF%E7%94%A8%E7%9A%84%E7%94%A8%E4%BE%8B%E8%84%9A%E6%9C%AC">使用AppiumDesktop录制一个可用的用例脚本</a></li>
+<li><a href="#%E9%87%8D%E6%96%B0%E7%BB%84%E7%BB%87%E5%BD%95%E5%88%B6%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81">重新组织录制脚本代码</a></li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://usergwen.github.io/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://usergwen.github.io/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '99MFuM6ltGnNziB67hHWHEMi-gzGzoHsz',
+    appKey: 'sPep7vS8G6Wn9p4fmiBoxpOo',
+    pageSize: 10,
+    notify: false,
+    avatar: 'mp',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>
