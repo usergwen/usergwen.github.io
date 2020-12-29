@@ -2062,6 +2062,16 @@ body {
         width: 960px;
         margin: 0 auto;
       }
+    @font-face {
+      font-family: 'sarasa-fixed-sc-regular.ttf';
+      src: url('/media/fonts/sarasa-fixed-sc-regular.ttf.ttf');
+    }
+    * {
+        font-family: 'sarasa-fixed-sc-regular.ttf';
+    }
+    .post-body {
+      font-size: 16px !important
+    }
     body {
       color: #555;
     }
