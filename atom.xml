@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://usergwen.github.io</id>
     <title>whispers</title>
-    <updated>2021-01-11T11:48:32.652Z</updated>
+    <updated>2021-01-11T16:58:59.013Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://usergwen.github.io"/>
     <link rel="self" href="https://usergwen.github.io/atom.xml"/>
@@ -10,26 +10,10 @@
     <icon>https://usergwen.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, whispers</rights>
     <entry>
-        <title type="html"><![CDATA[Appium简明教程之Android篇]]></title>
-        <id>https://usergwen.github.io/UD1_q0jy9/</id>
-        <link href="https://usergwen.github.io/UD1_q0jy9/">
+        <title type="html"><![CDATA[终将与她道一声再见]]></title>
+        <id>https://usergwen.github.io/lqvVkJGES/</id>
+        <link href="https://usergwen.github.io/lqvVkJGES/">
         </link>
-        <updated>2020-08-27T20:20:29.000Z</updated>
-        <summary type="html"><![CDATA[<p>这是一份基于python语言，从Appium环境配置到Appium可以在Android移动设备上进行功能自动化测试的一份简明教程，主要学习内容如下：</p>
-<ul>
-<li>简单了解Appium在Android设备上的工作流程</li>
-<li>如何使用Android Studio提供的Emulator模拟器</li>
-<li>如何使用Appium Desktop进行UI元素定位和用例录制</li>
-<li>如何通过Python+Appium对Android设备上的应用进行UI自动化测试</li>
-</ul>
-]]></summary>
-        <content type="html"><![CDATA[<p>这是一份基于python语言，从Appium环境配置到Appium可以在Android移动设备上进行功能自动化测试的一份简明教程，主要学习内容如下：</p>
-<ul>
-<li>简单了解Appium在Android设备上的工作流程</li>
-<li>如何使用Android Studio提供的Emulator模拟器</li>
-<li>如何使用Appium Desktop进行UI元素定位和用例录制</li>
-<li>如何通过Python+Appium对Android设备上的应用进行UI自动化测试</li>
-</ul>
-]]></content>
+        <updated>2021-01-11T16:17:44.000Z</updated>
     </entry>
 </feed>
