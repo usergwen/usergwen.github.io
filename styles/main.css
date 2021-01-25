@@ -2063,14 +2063,14 @@ body {
         margin: 0 auto;
       }
     @font-face {
-      font-family: 'sarasa-fixed-sc-regular.ttf';
-      src: url('/media/fonts/sarasa-fixed-sc-regular.ttf.ttf');
+      font-family: 'Microsoft YaHei Mono.ttf';
+      src: url('/media/fonts/Microsoft YaHei Mono.ttf.ttf');
     }
     * {
-        font-family: 'sarasa-fixed-sc-regular.ttf';
+        font-family: 'Microsoft YaHei Mono.ttf';
     }
     .post-body {
-      font-size: 16px !important
+      font-size: 14px !important
     }
     body {
       color: #555;

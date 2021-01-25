@@ -5,11 +5,11 @@
   <meta charset="UTF-8" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="whispers">
+<meta name="keywords" content="Collapsar">
 <meta name="description" content="">
 <meta name="theme-color" content="#000">
 <title>whispers</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1610384333546">
+<link rel="shortcut icon" href="/favicon.ico?v=1611541457733">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -174,19 +174,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -237,6 +237,10 @@
       
       
       
+      
+      
+      
+      
       <a href="https://usergwen.github.io/lqvVkJGES/">
         <div class="motion-warpper">
           <div class="tag-post-node">
@@ -247,6 +251,8 @@
           </div>
         </div>
       </a>
+      
+      
       
       
       
@@ -737,7 +743,7 @@
 		}
 		$(document).ready(function () {
 			var AIimgSrc = [];
-			let chooseLive2d = 'aoba'
+			let chooseLive2d = 'hijiki'
 			if (chooseLive2d === 'histoire') {
 				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_00.png");
 				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_01.png");
@@ -973,6 +979,292 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/wHrHzHUcH/"" data-c="
+          &lt;h1 id=&#34;一-python源码阅读-list&#34;&gt;一、Python源码阅读 - List&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;“==========================题外话=======================”&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;源码版本 &lt;a href=&#34;https://github.com/python/cpython/tree/3.9&#34;&gt;&lt;code&gt;python 3.9&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;PS：
+&lt;ul&gt;
+&lt;li&gt;就是C语言的基础吧，嗯，实在惨不忍睹，所以写写能看懂的部分，Google了也看不懂的，后面在研究，后续会更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;“=====================不说废话，下面开始===================”&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;1-源码位置&#34;&gt;1. 源码位置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Include/listobject.h&#34;&gt;&lt;code&gt;include/listobject.h&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Include/cpython/listobject.h&#34;&gt;&lt;code&gt;Include/cpython/listobject.h&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Objects/listobject.c&#34;&gt;&lt;code&gt;Objects/listobject.c&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-pylistobject的函数&#34;&gt;2. &lt;code&gt;PyListObject&lt;/code&gt;的函数&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// include/listobject.h
+
+/**
+* 分析：
+* 1. PyListObject支持元素的插入，添加，删除等操作
+*   -&amp;gt; PyList_SetItem
+*   -&amp;gt; PyList_Insert
+*   -&amp;gt; PyList_Append
+*   -&amp;gt; PyList_SetSlice
+*   -&amp;gt; PyList_Sort
+*   -&amp;gt; PyList_Reverse
+* 2. 在列表元素中，无一例外存放的都是PyObject *指针，而且PyListObject对象一定是一个可变长对象
+**/
+PyAPI_FUNC(PyObject *) PyList_New(Py_ssize_t size);
+PyAPI_FUNC(Py_ssize_t) PyList_Size(PyObject *);
+
+PyAPI_FUNC(PyObject *) PyList_GetItem(PyObject *, Py_ssize_t);
+PyAPI_FUNC(int) PyList_SetItem(PyObject *, Py_ssize_t, PyObject *);
+PyAPI_FUNC(int) PyList_Insert(PyObject *, Py_ssize_t, PyObject *);
+PyAPI_FUNC(int) PyList_Append(PyObject *, PyObject *);
+
+PyAPI_FUNC(PyObject *) PyList_GetSlice(PyObject *, Py_ssize_t, Py_ssize_t);
+PyAPI_FUNC(int) PyList_SetSlice(PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
+
+PyAPI_FUNC(int) PyList_Sort(PyObject *);
+PyAPI_FUNC(int) PyList_Reverse(PyObject *);
+PyAPI_FUNC(PyObject *) PyList_AsTuple(PyObject *);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;3-pylistobject的定义&#34;&gt;3. &lt;code&gt;PyListObject&lt;/code&gt;的定义&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// Include/cpython/listobject.h
+typedef struct {
+    // PyListObject 对象的头，有一个ob_size
+    PyObject_VAR_HEAD
+    // ob_item 是指向元素列表的指针，python列表中的list[0]其实就是ob_item[0]
+    PyObject **ob_item;
+    // allocated 数值正是维护元素列表（PyObject*列表）的关键，指针指向了元素列表所在的内存首地址，它正是维护了当前列表可容纳元素总数
+    // 对应ob_size而言，allocated为了避免频繁插入删除预先会申请比实际大小大一些的内存，而ob_size是当前列表已被使用的实际内存大小，这个和python的内存管理策略相关
+    Py_ssize_t allocated;
+} PyListObject;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;3-pylistobject的创建&#34;&gt;3. &lt;code&gt;PyListObject&lt;/code&gt;的创建&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Objects/listobject.c&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 唯一的创建list的途径
+
+/**
+* Python对列表的创建动作分为两部分：
+* 1. PyListObject对象本身
+* 2. PyListObject对象维护的元素列表
+* 这两块分离的内存和ob_item建立联系
+* PyListObject对象被创建之后，会立刻调用size参数创建可维护元素列表，并会初始化每一个元素为NULL
+**/
+PyObject *
+PyList_New(Py_ssize_t size)  // 这个函数接受一个size参数，创建list时可以指定初始元素个数
+{
+    PyListObject *op;
+
+    if (size &amp;lt; 0) {
+        PyErr_BadInternalCall();
+        return NULL;
+    }
+    // 为list对象申请内存
+    if (numfree) {
+        // 缓冲池可用
+        numfree--;
+        op = free_list[numfree];
+        _Py_NewReference((PyObject *)op);
+    } else {
+        // 缓冲池不可用
+        op = PyObject_GC_New(PyListObject, &amp;amp;PyList_Type);
+        if (op == NULL)
+            return NULL;
+    }
+    // 为list维护的元素列表申请内存
+    if (size &amp;lt;= 0)
+        op-&amp;gt;ob_item = NULL;
+    else {
+        // 内存溢出检查
+        op-&amp;gt;ob_item = (PyObject **) PyMem_Calloc(size, sizeof(PyObject *));
+        if (op-&amp;gt;ob_item == NULL) {
+            Py_DECREF(op);
+            return PyErr_NoMemory();
+        }
+    }
+    Py_SET_SIZE(op, size);
+    op-&amp;gt;allocated = size;
+    _PyObject_GC_TRACK(op);
+    return (PyObject *) op;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;4-pylist_setitem&#34;&gt;4. &lt;code&gt;PyList_SetItem&lt;/code&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 示例：list[3] = 100
+
+int
+PyList_SetItem(PyObject *op, Py_ssize_t i,
+               PyObject *newitem)
+{
+    PyObject **p;
+    // 索引检查
+    if (!PyList_Check(op)) {
+        Py_XDECREF(newitem);
+        PyErr_BadInternalCall();
+        return -1;
+    }
+    // 设置元素
+    if (!valid_index(i, Py_SIZE(op))) {
+        Py_XDECREF(newitem);
+        PyErr_SetString(PyExc_IndexError,
+                        &amp;quot;list assignment index out of range&amp;quot;);
+        return -1;
+    }
+    p = ((PyListObject *)op) -&amp;gt; ob_item + i;
+    Py_XSETREF(*p, newitem);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;5-pylist_insert&#34;&gt;5. &lt;code&gt;PyList_Insert&lt;/code&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 示例：list.insert(3, 101)
+int
+PyList_Insert(PyObject *op, Py_ssize_t where, PyObject *newitem)
+{
+    if (!PyList_Check(op)) {
+        PyErr_BadInternalCall();
+        return -1;
+    }
+    // 类型检查
+    return ins1((PyListObject *)op, where, newitem);
+}
+
+static int
+app1(PyListObject *self, PyObject *v)
+{
+    Py_ssize_t n = PyList_GET_SIZE(self);
+
+    assert (v != NULL);
+    // 调整内存容量
+    if (n == PY_SSIZE_T_MAX) {
+        PyErr_SetString(PyExc_OverflowError,
+            &amp;quot;cannot add more objects to list&amp;quot;);
+        return -1;
+    }
+    // list_resize函数会判断是否重新申请内存(包括申请大小)，支持扩展列表
+    if (list_resize(self, n+1) &amp;lt; 0)
+        return -1;
+    // 确定插入点并插入元素
+    Py_INCREF(v);
+    PyList_SET_ITEM(self, n, v);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;6-pylist_append&#34;&gt;6. &lt;code&gt;PyList_Append&lt;/code&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 示例：list.append(102)
+
+// 与insert类似的
+int
+PyList_Append(PyObject *op, PyObject *newitem)
+{
+    if (PyList_Check(op) &amp;amp;&amp;amp; (newitem != NULL))
+        // 在list末尾插入元素
+        return app1((PyListObject *)op, newitem);
+    PyErr_BadInternalCall();
+    return -1;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;7-list_remove&#34;&gt;7. &lt;code&gt;list_remove&lt;/code&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 示例：list.remove(102)
+static PyObject *
+list_remove(PyListObject *self, PyObject *value)
+/*[clinic end generated code: output=f087e1951a5e30d1 input=2dc2ba5bb2fb1f82]*/
+{
+    Py_ssize_t i;
+
+    for (i = 0; i &amp;lt; Py_SIZE(self); i++) {
+        PyObject *obj = self-&amp;gt;ob_item[i];
+        Py_INCREF(obj);
+        // 比较list中的元素和待删除元素
+        int cmp = PyObject_RichCompareBool(obj, value, Py_EQ);
+        Py_DECREF(obj);
+        if (cmp &amp;gt; 0) {
+            // 遍历结束会调用list_ass_slice函数执行删除操作
+            if (list_ass_slice(self, i, i+1,
+                               (PyObject *)NULL) == 0)
+                Py_RETURN_NONE;
+            return NULL;
+        }
+        else if (cmp &amp;lt; 0)
+            return NULL;
+    }
+    PyErr_SetString(PyExc_ValueError, &amp;quot;list.remove(x): x not in list&amp;quot;);
+    return NULL;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;8-list_pop&#34;&gt;8. &lt;code&gt;list_pop&lt;/code&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 示例：list.pop(1)
+// 指定索引值删除，默认是弹出最后一个元素
+
+static PyObject *
+list_pop_impl(PyListObject *self, Py_ssize_t index)
+{
+    PyObject *v;
+    int status;
+    
+    // 索引检查
+    if (Py_SIZE(self) == 0) {
+        PyErr_SetString(PyExc_IndexError, &amp;quot;pop from empty list&amp;quot;);
+        return NULL;
+    }
+    if (index &amp;lt; 0)
+        index += Py_SIZE(self);
+    if (!valid_index(index, Py_SIZE(self))) {
+        PyErr_SetString(PyExc_IndexError, &amp;quot;pop index out of range&amp;quot;);
+        return NULL;
+    }
+    // 调整内存
+    v = self-&amp;gt;ob_item[index];
+    if (index == Py_SIZE(self) - 1) {
+        status = list_resize(self, Py_SIZE(self) - 1);
+        if (status &amp;gt;= 0)
+            return v; 
+        else
+            return NULL;
+    }
+    Py_INCREF(v);
+    status = list_ass_slice(self, index, index+1, (PyObject *)NULL);
+    if (status &amp;lt; 0) {
+        Py_DECREF(v);
+        return NULL;
+    }
+    return v;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;9-list_dealloc&#34;&gt;9. &lt;code&gt;list_dealloc&lt;/code&gt;&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// 最后，看一下PyListObject对象缓冲池
+// 也就是一个PyListObject对象被销毁的过程，在最开始的定义对象的时候，就知道对象本身和维护元素内存分离，所以销毁也是分离的
+static void
+list_dealloc(PyListObject *op)
+{
+    Py_ssize_t i;
+    PyObject_GC_UnTrack(op);
+    Py_TRASHCAN_BEGIN(op, list_dealloc)
+    // 销毁维护元素列表
+    if (op-&amp;gt;ob_item != NULL) {
+        i = Py_SIZE(op);
+        while (--i &amp;gt;= 0) {
+            Py_XDECREF(op-&amp;gt;ob_item[i]);
+        }
+        PyMem_FREE(op-&amp;gt;ob_item);
+    }
+    // 销毁对象本身，这个时候会先检查缓存对象数量是否已满，未满就把这个对象放到缓存中
+    // 所以，后续创建新的list会先从缓存中激活这些被放入的对象，而不是重新创建新的对象
+    if (numfree &amp;lt; PyList_MAXFREELIST &amp;amp;&amp;amp; PyList_CheckExact(op))
+        free_list[numfree++] = op;
+    else
+        Py_TYPE(op)-&amp;gt;tp_free((PyObject *)op);
+    Py_TRASHCAN_END
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;list内容太多了，已经是累了，所以list先到这吧&lt;/p&gt;
+&lt;/blockquote&gt;
+">Python源码阅读（一）：list</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/lqvVkJGES/"" data-c="
