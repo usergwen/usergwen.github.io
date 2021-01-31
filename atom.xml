@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://usergwen.github.io</id>
-    <title>隐者不遇</title>
-    <updated>2021-01-31T13:12:10.517Z</updated>
+    <title>春风不语</title>
+    <updated>2021-01-31T13:17:06.385Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://usergwen.github.io"/>
     <link rel="self" href="https://usergwen.github.io/atom.xml"/>
-    <subtitle>只在此山中，云深不知处。</subtitle>
+    <subtitle>遇事不决，可问春风。</subtitle>
     <logo>https://usergwen.github.io/images/avatar.png</logo>
     <icon>https://usergwen.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, 隐者不遇</rights>
+    <rights>All rights reserved 2021, 春风不语</rights>
     <entry>
         <title type="html"><![CDATA[《Python源码阅读》之 dictobject]]></title>
         <id>https://usergwen.github.io/CuLQ36g4j/</id>
