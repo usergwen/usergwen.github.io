@@ -9,7 +9,7 @@
 <meta name="description" content="只在此山中，云深不知处。">
 <meta name="theme-color" content="#000">
 <title>隐者不遇</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1612098543254">
+<link rel="shortcut icon" href="/favicon.ico?v=1612098727172">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -274,268 +274,50 @@
         
         
           
-            <h1 id="python源码阅读-dict">Python源码阅读 - Dict</h1>
+            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
+            
+            
+              
+              
+              
+            
+              
+              
+              
+            
+              
+              
+              
+            
+              
+              
+              
+            
+              
+              
+              
+            
+            
+              <p><h1 id="python源码阅读-dict">Python源码阅读 - Dict</h1>
 <h2 id="1-源码位置">1. 源码位置</h2>
 <ul>
 <li><a href="https://github.com/python/cpython/blob/3.9/Include/dictobject.h"><code>include/dictobject.h</code></a></li>
 <li><a href="https://github.com/python/cpython/blob/3.9/Include/cpython/dictobject.h"><code>Include/cpython/dictobject.h</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Objects/dictobject.c"><code>Objects/dictobject.c</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Objects/dict-common.h"><code>dict-common.h</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Objects/dictnotes.txt"><code>dictnotes.txt</code></a></li>
-</ul>
-<h2 id="2-pydictobject">2. <code>PyDictObject</code></h2>
-<blockquote>
-<ol>
-<li>
-<p><code>PyDictObject</code>对搜索效率要求极为严苛，底层采用了 hash table 散列表</p>
-</li>
-<li>
-<p>什么是散列表？</p>
-</li>
-</ol>
-<p>散列表基本思想是通过一定函数讲需要搜索的数据的键值映射为一个整数，这个整数视为索引去访问一片连续的内存区域</p>
-<p>Python中解决散列冲突的方式是开放定址法，不同于开链表的方式，Python采用二次探测函数在发生散列冲突时，计算下一个可用地址</p>
-<p>这种开放定址法有一个缺点就是，不能删除探测链上的元素，否则探测链断裂后果很严重，所以python中会采用伪删除</p>
-</blockquote>
-<h3 id="21-dictnotestxt通读摘抄">2.1 <code>dictnotes.txt</code>通读摘抄</h3>
-<ol>
-<li>
-<p>应用方面：</p>
-<ul>
-<li>关键字参数查找：一般1-3个元素，一个读一个写</li>
-<li>类方法查找：一般8-16个元素，会出现基于基类的很多失败查找</li>
-<li>实例属性和全局变量：一般4-10各元素，很常见的读写</li>
-<li>内置命令：一般150个内部字符串，会频繁读取，但不会写入</li>
-<li>删除重复keys：dict.fromkeys(seqn).keys()</li>
-<li>统计序列元素：d[e] = d.get(e,0) + 1</li>
-<li>动态映射：以删除，插入，替换为主要特点，这时候采用虚拟表项会极大提高性能</li>
-</ul>
-</li>
-<li>
-<p>数据存储：</p>
-<ul>
-<li>dictobject结构体本身</li>
-<li>dict-keys对象(键和散列)</li>
-<li>值数组</li>
-</ul>
-</li>
-</ol>
-<h3 id="22-pydictobject">2.2 <code>PyDictObject</code></h3>
-<pre><code>layout:
-+---------------+
-| dk_refcnt     |
-| dk_size       |
-| dk_lookup     |
-| dk_usable     |
-| dk_nentries   |
-+---------------+
-| dk_indices    |   //dk_indices 是一个共用体，会根据 dk_size 的值，决定存储 index 的类型
-|               |
-+---------------+
-| dk_entries    |
-|               |
-+---------------+
-</code></pre>
-<pre><code class="language-c">typedef struct _dictkeysobject PyDictKeysObject;
 
-// key和value分离存储，分别是ma_keys和ma_values两个表中
-typedef struct {
-    PyObject_HEAD //Python3中的字典对象被归类到Concrete Objects
-    Py_ssize_t ma_used;
-    uint64_t ma_version_tag;
-    PyDictKeysObject *ma_keys;
-    PyObject **ma_values; // 当ma_values不是null的时候，代表keys和values是被分离存储的，反之，表示键值对被组合存储在ma_keys中
-} PyDictObject;
-</code></pre>
-<h3 id="23-pydictkeysobject">2.3 <code>PyDictKeysObject</code></h3>
-<pre><code class="language-c">struct _dictkeysobject {
-    Py_ssize_t dk_refcnt;
-    Py_ssize_t dk_size; //哈希表大小，一定是2的幂，决定索引的大小
-    
-    dict_lookup_func dk_lookup; //查找函数
-    
-    Py_ssize_t dk_usable; //字典不可用元素个数
-    Py_ssize_t dk_nentries; //字典可用元素个数
-
-    char dk_indices[]; //使用char避免混淆，是dk_size的实际哈希表，保存dk_entries的索引
-};
-</code></pre>
-<h3 id="24-pydictkeyentry">2.4 <code>PyDictKeyEntry</code></h3>
-<pre><code class="language-c">//为什么使用负数作为键值对的状态，是因为dk_indices中使用有符号整数
-//dk_entries中存储PyDictKeyEntry对象，每个元素是一个entry，可以被宏DK_ENTRIES访问entry
-#define DKIX_EMPTY (-1)
-#define DKIX_DUMMY (-2)  
-#define DKIX_ERROR (-3)
-typedef struct {
-    Py_hash_t me_hash; //缓存ma_key的hash code
-    PyObject *me_key;
-    PyObject *me_value; //这块只对组合存储有意义，分离存储可以不考虑
-} PyDictKeyEntry;
-</code></pre>
-<h3 id="25-dk_indices">2.5 <code>dk_indices</code></h3>
-<blockquote>
-<p>实际的hash table，对应一个slot数组，每个数组四种状态</p>
-</blockquote>
-<pre><code>1. Unused
-    键值对当前和曾经都未使用，是初始状态
-2. Active
-    键值对当前被使用处于活动状态，可以过度到虚拟状态和删除挂起状态，也就是ma_values不是null的唯一情况
-3. Dummy
-    键值对处于虚拟状态，可以理解为假死状态，
-    因为字典对象底层使用开放定址法解决散列冲突问题，所以在探测函数寻找可用地址时，不能让探测链断裂，也就是删除探测链上的元素，
-    所以，删除元素时会从Active过度到Dummy状态，没有被真正删除
-4. Pending
-    键值对处于挂起状态，会在元素还未在分离表中插入时存在的一种状态
-</code></pre>
-<h3 id="26-创建字典-pydict_new">2.6 创建字典 <code>PyDict_New</code></h3>
-<pre><code class="language-c">PyObject *
-PyDict_New(void)
-{
-    dictkeys_incref(Py_EMPTY_KEYS);
-    return new_dict(Py_EMPTY_KEYS, empty_values);
-}
-
-// 对象缓冲池，与listobject类似的，销毁时会放入对象缓冲池，也牵扯出共享机制dict_dealloc
-// keys对象
-static PyDictKeysObject *new_keys_object(Py_ssize_t size)
-{
-    PyDictKeysObject *dk;
-    Py_ssize_t es, usable;
-
-    assert(size &gt;= PyDict_MINSIZE); //字典起始的大小是8
-    assert(IS_POWER_OF_2(size)); //必须是2的幂
-
-    // len(dk_entries) == USABLE_FRACTION(dk_size)，最小是5，(((n) &lt;&lt; 1)/3) - 注意对象缓冲池 keys_free_list
-    usable = USABLE_FRACTION(size); //根据size大小，确定内存空间
-    if (size &lt;= 0xff) {
-        es = 1;
-    }
-    else if (size &lt;= 0xffff) {
-        es = 2;
-    }
-#if SIZEOF_VOID_P &gt; 4
-    else if (size &lt;= 0xffffffff) {
-        es = 4;
-    }
-#endif
-    else {
-        es = sizeof(Py_ssize_t);
-    }
-
-#if PyDict_MAXFREELIST &gt; 0
-    if (size == PyDict_MINSIZE &amp;&amp; numfreekeys &gt; 0) {
-        dk = keys_free_list[--numfreekeys];
-    }
-    else
-#endif
-    {
-        dk = PyObject_MALLOC(sizeof(PyDictKeysObject)
-                             + es * size
-                             + sizeof(PyDictKeyEntry) * usable);
-        if (dk == NULL) {
-            PyErr_NoMemory();
-            return NULL;
-        }
-    }
-#ifdef Py_REF_DEBUG
-    _Py_RefTotal++;
-#endif
-    dk-&gt;dk_refcnt = 1;
-    dk-&gt;dk_size = size;
-    dk-&gt;dk_usable = usable;
-    dk-&gt;dk_lookup = lookdict_unicode_nodummy;
-    dk-&gt;dk_nentries = 0;
-    memset(&amp;dk-&gt;dk_indices[0], 0xff, es * size); //初始化dk_indices == -1
-    memset(DK_ENTRIES(dk), 0, sizeof(PyDictKeyEntry) * usable); //初始化dk_entries == 0
-    return dk;
-}
-
-//对keys对象的引用
-static PyObject *
-new_dict(PyDictKeysObject *keys, PyObject **values)
-{
-    PyDictObject *mp;
-    assert(keys != NULL);
-#if PyDict_MAXFREELIST &gt; 0
-    if (numfree) {
-        mp = free_list[--numfree];
-        assert (mp != NULL);
-        assert (Py_IS_TYPE(mp, &amp;PyDict_Type));
-        _Py_NewReference((PyObject *)mp);
-    }
-    else
-#endif
-    {
-        mp = PyObject_GC_New(PyDictObject, &amp;PyDict_Type);
-        if (mp == NULL) {
-            dictkeys_decref(keys);
-            if (values != empty_values) {
-                free_values(values);
-            }
-            return NULL;
-        }
-    }
-    mp-&gt;ma_keys = keys;
-    mp-&gt;ma_values = values;
-    mp-&gt;ma_used = 0;
-    mp-&gt;ma_version_tag = DICT_NEXT_VERSION();
-    ASSERT_CONSISTENT(mp);
-    return (PyObject *)mp;
-}
-</code></pre>
-<h3 id="27-methods">2.7 Methods</h3>
-<blockquote>
-<p>字典的增删查改，这里就举一个例子 GetItem</p>
-</blockquote>
-<pre><code class="language-c">PyObject *
-PyDict_GetItem(PyObject *op, PyObject *key)
-{
-    Py_hash_t hash;
-    Py_ssize_t ix;
-    PyDictObject *mp = (PyDictObject *)op;
-    PyThreadState *tstate;
-    PyObject *value;
-
-    //获取计算hash值
-    if (!PyDict_Check(op))
-        return NULL;
-    if (!PyUnicode_CheckExact(key) ||
-        (hash = ((PyASCIIObject *) key)-&gt;hash) == -1)
-    {
-        hash = PyObject_Hash(key);
-        if (hash == -1) {
-            PyErr_Clear();
-            return NULL;
-        }
-    }
-
-    //在初始化过程中null的异常处理
-    tstate = _PyThreadState_GET();
-    if (tstate != NULL &amp;&amp; tstate-&gt;curexc_type != NULL) {
-        PyObject *err_type, *err_value, *err_tb;
-        PyErr_Fetch(&amp;err_type, &amp;err_value, &amp;err_tb);
-        ix = (mp-&gt;ma_keys-&gt;dk_lookup)(mp, key, hash, &amp;value);
-        PyErr_Restore(err_type, err_value, err_tb);
-        if (ix &lt; 0)
-            return NULL;
-    }
-    else {
-        // 查找index，返回ix&gt;0或者ix==-1or-3
-        ix = (mp-&gt;ma_keys-&gt;dk_lookup)(mp, key, hash, &amp;value);
-        if (ix &lt; 0) {
-            PyErr_Clear();
-            return NULL;
-        }
-    }
-    return value;
-}
-</code></pre>
-<blockquote>
-<p>源码注释非常详细，代码足够优雅，此处就不赘述了，重要的是掌握方法论，然后能够在实际使用过程中举一反三</p>
-</blockquote>
-
+                
+                  <!-- 自动摘要出来的内容有<code则补上结尾,防止格式错误 -->
+                  </code></pre>
+                
+              <p>
+            
           
         
+        
+        <div class="post-button text-center">
+          <a class="btn language" data-lan="read-more" href="https://usergwen.github.io/CuLQ36g4j/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
         
       </div>
       
@@ -1256,7 +1038,6 @@ PyDict_GetItem(PyObject *op, PyObject *key)
 &lt;blockquote&gt;
 &lt;p&gt;源码注释非常详细，代码足够优雅，此处就不赘述了，重要的是掌握方法论，然后能够在实际使用过程中举一反三&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;!-- more --&gt;
 ">《Python源码阅读》之 dictobject</a>
       </div>
       
