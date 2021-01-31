@@ -9,7 +9,7 @@
 <meta name="description" content="只在此山中，云深不知处。">
 <meta name="theme-color" content="#000">
 <title>隐者不遇</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1612098309522">
+<link rel="shortcut icon" href="/favicon.ico?v=1612098543254">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -177,7 +177,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-count">3</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -234,7 +234,7 @@
   <div class="archive-timeline-box">
     <div class="archive-timeline-title">
       
-        <h2 class="language" data-lan="archives" data-count="2">非常好！目前共计2篇日志，继续努力！</h2>
+        <h2 class="language" data-lan="archives" data-count="3">非常好！目前共计3篇日志，继续努力！</h2>
       
     </div>
     
@@ -244,6 +244,19 @@
           <h2 class="tag-year">2021</h2>
         </div>    
         
+      
+      <a href="https://usergwen.github.io/CuLQ36g4j/">
+        <div class="motion-warpper tag-archive-node">
+          <div class="tag-node">
+            <h1>
+              01-31
+              <small>《Python源码阅读》之 dictobject</small>
+            </h1>
+          </div>  
+      </div>
+      </a>
+    
+      
       
       <a href="https://usergwen.github.io/wHrHzHUcH/">
         <div class="motion-warpper tag-archive-node">
@@ -263,7 +276,7 @@
           <div class="tag-node">
             <h1>
               01-12
-              <small>终将与她道一声再见</small>
+              <small>《终身成长》读书笔记</small>
             </h1>
           </div>  
       </div>
@@ -494,20 +507,273 @@
     <div class="result" id="result">
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/wHrHzHUcH/"" data-c="
-          &lt;h1 id=&#34;一-python源码阅读-list&#34;&gt;一、Python源码阅读 - List&lt;/h1&gt;
+        <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/CuLQ36g4j/"" data-c="
+          &lt;h1 id=&#34;python源码阅读-dict&#34;&gt;Python源码阅读 - Dict&lt;/h1&gt;
+&lt;h2 id=&#34;1-源码位置&#34;&gt;1. 源码位置&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Include/dictobject.h&#34;&gt;&lt;code&gt;include/dictobject.h&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Include/cpython/dictobject.h&#34;&gt;&lt;code&gt;Include/cpython/dictobject.h&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Objects/dictobject.c&#34;&gt;&lt;code&gt;Objects/dictobject.c&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Objects/dict-common.h&#34;&gt;&lt;code&gt;dict-common.h&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Objects/dictnotes.txt&#34;&gt;&lt;code&gt;dictnotes.txt&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-pydictobject&#34;&gt;2. &lt;code&gt;PyDictObject&lt;/code&gt;&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;“==========================题外话=======================”&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;PyDictObject&lt;/code&gt;对搜索效率要求极为严苛，底层采用了 hash table 散列表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;什么是散列表？&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;散列表基本思想是通过一定函数讲需要搜索的数据的键值映射为一个整数，这个整数视为索引去访问一片连续的内存区域&lt;/p&gt;
+&lt;p&gt;Python中解决散列冲突的方式是开放定址法，不同于开链表的方式，Python采用二次探测函数在发生散列冲突时，计算下一个可用地址&lt;/p&gt;
+&lt;p&gt;这种开放定址法有一个缺点就是，不能删除探测链上的元素，否则探测链断裂后果很严重，所以python中会采用伪删除&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;21-dictnotestxt通读摘抄&#34;&gt;2.1 &lt;code&gt;dictnotes.txt&lt;/code&gt;通读摘抄&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;应用方面：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;源码版本 &lt;a href=&#34;https://github.com/python/cpython/tree/3.9&#34;&gt;&lt;code&gt;python 3.9&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;PS：
-&lt;ul&gt;
-&lt;li&gt;就是C语言的基础吧，嗯，实在惨不忍睹，所以写写能看懂的部分，Google了也看不懂的，后面在研究，后续会更新&lt;/li&gt;
+&lt;li&gt;关键字参数查找：一般1-3个元素，一个读一个写&lt;/li&gt;
+&lt;li&gt;类方法查找：一般8-16个元素，会出现基于基类的很多失败查找&lt;/li&gt;
+&lt;li&gt;实例属性和全局变量：一般4-10各元素，很常见的读写&lt;/li&gt;
+&lt;li&gt;内置命令：一般150个内部字符串，会频繁读取，但不会写入&lt;/li&gt;
+&lt;li&gt;删除重复keys：dict.fromkeys(seqn).keys()&lt;/li&gt;
+&lt;li&gt;统计序列元素：d[e] = d.get(e,0) + 1&lt;/li&gt;
+&lt;li&gt;动态映射：以删除，插入，替换为主要特点，这时候采用虚拟表项会极大提高性能&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据存储：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;dictobject结构体本身&lt;/li&gt;
+&lt;li&gt;dict-keys对象(键和散列)&lt;/li&gt;
+&lt;li&gt;值数组&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;“=====================不说废话，下面开始===================”&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;22-pydictobject&#34;&gt;2.2 &lt;code&gt;PyDictObject&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;layout:
++---------------+
+| dk_refcnt     |
+| dk_size       |
+| dk_lookup     |
+| dk_usable     |
+| dk_nentries   |
++---------------+
+| dk_indices    |   //dk_indices 是一个共用体，会根据 dk_size 的值，决定存储 index 的类型
+|               |
++---------------+
+| dk_entries    |
+|               |
++---------------+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;typedef struct _dictkeysobject PyDictKeysObject;
+
+// key和value分离存储，分别是ma_keys和ma_values两个表中
+typedef struct {
+    PyObject_HEAD //Python3中的字典对象被归类到Concrete Objects
+    Py_ssize_t ma_used;
+    uint64_t ma_version_tag;
+    PyDictKeysObject *ma_keys;
+    PyObject **ma_values; // 当ma_values不是null的时候，代表keys和values是被分离存储的，反之，表示键值对被组合存储在ma_keys中
+} PyDictObject;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;23-pydictkeysobject&#34;&gt;2.3 &lt;code&gt;PyDictKeysObject&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;struct _dictkeysobject {
+    Py_ssize_t dk_refcnt;
+    Py_ssize_t dk_size; //哈希表大小，一定是2的幂，决定索引的大小
+    
+    dict_lookup_func dk_lookup; //查找函数
+    
+    Py_ssize_t dk_usable; //字典不可用元素个数
+    Py_ssize_t dk_nentries; //字典可用元素个数
+
+    char dk_indices[]; //使用char避免混淆，是dk_size的实际哈希表，保存dk_entries的索引
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;24-pydictkeyentry&#34;&gt;2.4 &lt;code&gt;PyDictKeyEntry&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;//为什么使用负数作为键值对的状态，是因为dk_indices中使用有符号整数
+//dk_entries中存储PyDictKeyEntry对象，每个元素是一个entry，可以被宏DK_ENTRIES访问entry
+#define DKIX_EMPTY (-1)
+#define DKIX_DUMMY (-2)  
+#define DKIX_ERROR (-3)
+typedef struct {
+    Py_hash_t me_hash; //缓存ma_key的hash code
+    PyObject *me_key;
+    PyObject *me_value; //这块只对组合存储有意义，分离存储可以不考虑
+} PyDictKeyEntry;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;25-dk_indices&#34;&gt;2.5 &lt;code&gt;dk_indices&lt;/code&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;实际的hash table，对应一个slot数组，每个数组四种状态&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;1. Unused
+    键值对当前和曾经都未使用，是初始状态
+2. Active
+    键值对当前被使用处于活动状态，可以过度到虚拟状态和删除挂起状态，也就是ma_values不是null的唯一情况
+3. Dummy
+    键值对处于虚拟状态，可以理解为假死状态，
+    因为字典对象底层使用开放定址法解决散列冲突问题，所以在探测函数寻找可用地址时，不能让探测链断裂，也就是删除探测链上的元素，
+    所以，删除元素时会从Active过度到Dummy状态，没有被真正删除
+4. Pending
+    键值对处于挂起状态，会在元素还未在分离表中插入时存在的一种状态
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;26-创建字典-pydict_new&#34;&gt;2.6 创建字典 &lt;code&gt;PyDict_New&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;PyObject *
+PyDict_New(void)
+{
+    dictkeys_incref(Py_EMPTY_KEYS);
+    return new_dict(Py_EMPTY_KEYS, empty_values);
+}
+
+// 对象缓冲池，与listobject类似的，销毁时会放入对象缓冲池，也牵扯出共享机制dict_dealloc
+// keys对象
+static PyDictKeysObject *new_keys_object(Py_ssize_t size)
+{
+    PyDictKeysObject *dk;
+    Py_ssize_t es, usable;
+
+    assert(size &amp;gt;= PyDict_MINSIZE); //字典起始的大小是8
+    assert(IS_POWER_OF_2(size)); //必须是2的幂
+
+    // len(dk_entries) == USABLE_FRACTION(dk_size)，最小是5，(((n) &amp;lt;&amp;lt; 1)/3) - 注意对象缓冲池 keys_free_list
+    usable = USABLE_FRACTION(size); //根据size大小，确定内存空间
+    if (size &amp;lt;= 0xff) {
+        es = 1;
+    }
+    else if (size &amp;lt;= 0xffff) {
+        es = 2;
+    }
+#if SIZEOF_VOID_P &amp;gt; 4
+    else if (size &amp;lt;= 0xffffffff) {
+        es = 4;
+    }
+#endif
+    else {
+        es = sizeof(Py_ssize_t);
+    }
+
+#if PyDict_MAXFREELIST &amp;gt; 0
+    if (size == PyDict_MINSIZE &amp;amp;&amp;amp; numfreekeys &amp;gt; 0) {
+        dk = keys_free_list[--numfreekeys];
+    }
+    else
+#endif
+    {
+        dk = PyObject_MALLOC(sizeof(PyDictKeysObject)
+                             + es * size
+                             + sizeof(PyDictKeyEntry) * usable);
+        if (dk == NULL) {
+            PyErr_NoMemory();
+            return NULL;
+        }
+    }
+#ifdef Py_REF_DEBUG
+    _Py_RefTotal++;
+#endif
+    dk-&amp;gt;dk_refcnt = 1;
+    dk-&amp;gt;dk_size = size;
+    dk-&amp;gt;dk_usable = usable;
+    dk-&amp;gt;dk_lookup = lookdict_unicode_nodummy;
+    dk-&amp;gt;dk_nentries = 0;
+    memset(&amp;amp;dk-&amp;gt;dk_indices[0], 0xff, es * size); //初始化dk_indices == -1
+    memset(DK_ENTRIES(dk), 0, sizeof(PyDictKeyEntry) * usable); //初始化dk_entries == 0
+    return dk;
+}
+
+//对keys对象的引用
+static PyObject *
+new_dict(PyDictKeysObject *keys, PyObject **values)
+{
+    PyDictObject *mp;
+    assert(keys != NULL);
+#if PyDict_MAXFREELIST &amp;gt; 0
+    if (numfree) {
+        mp = free_list[--numfree];
+        assert (mp != NULL);
+        assert (Py_IS_TYPE(mp, &amp;amp;PyDict_Type));
+        _Py_NewReference((PyObject *)mp);
+    }
+    else
+#endif
+    {
+        mp = PyObject_GC_New(PyDictObject, &amp;amp;PyDict_Type);
+        if (mp == NULL) {
+            dictkeys_decref(keys);
+            if (values != empty_values) {
+                free_values(values);
+            }
+            return NULL;
+        }
+    }
+    mp-&amp;gt;ma_keys = keys;
+    mp-&amp;gt;ma_values = values;
+    mp-&amp;gt;ma_used = 0;
+    mp-&amp;gt;ma_version_tag = DICT_NEXT_VERSION();
+    ASSERT_CONSISTENT(mp);
+    return (PyObject *)mp;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;27-methods&#34;&gt;2.7 Methods&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;字典的增删查改，这里就举一个例子 GetItem&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;PyObject *
+PyDict_GetItem(PyObject *op, PyObject *key)
+{
+    Py_hash_t hash;
+    Py_ssize_t ix;
+    PyDictObject *mp = (PyDictObject *)op;
+    PyThreadState *tstate;
+    PyObject *value;
+
+    //获取计算hash值
+    if (!PyDict_Check(op))
+        return NULL;
+    if (!PyUnicode_CheckExact(key) ||
+        (hash = ((PyASCIIObject *) key)-&amp;gt;hash) == -1)
+    {
+        hash = PyObject_Hash(key);
+        if (hash == -1) {
+            PyErr_Clear();
+            return NULL;
+        }
+    }
+
+    //在初始化过程中null的异常处理
+    tstate = _PyThreadState_GET();
+    if (tstate != NULL &amp;amp;&amp;amp; tstate-&amp;gt;curexc_type != NULL) {
+        PyObject *err_type, *err_value, *err_tb;
+        PyErr_Fetch(&amp;amp;err_type, &amp;amp;err_value, &amp;amp;err_tb);
+        ix = (mp-&amp;gt;ma_keys-&amp;gt;dk_lookup)(mp, key, hash, &amp;amp;value);
+        PyErr_Restore(err_type, err_value, err_tb);
+        if (ix &amp;lt; 0)
+            return NULL;
+    }
+    else {
+        // 查找index，返回ix&amp;gt;0或者ix==-1or-3
+        ix = (mp-&amp;gt;ma_keys-&amp;gt;dk_lookup)(mp, key, hash, &amp;amp;value);
+        if (ix &amp;lt; 0) {
+            PyErr_Clear();
+            return NULL;
+        }
+    }
+    return value;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;源码注释非常详细，代码足够优雅，此处就不赘述了，重要的是掌握方法论，然后能够在实际使用过程中举一反三&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;!-- more --&gt;
+">《Python源码阅读》之 dictobject</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/wHrHzHUcH/"" data-c="
+          &lt;h1 id=&#34;一-python源码阅读-list&#34;&gt;一、Python源码阅读 - List&lt;/h1&gt;
 &lt;h2 id=&#34;1-源码位置&#34;&gt;1. 源码位置&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/python/cpython/blob/3.9/Include/listobject.h&#34;&gt;&lt;code&gt;include/listobject.h&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
@@ -810,7 +1076,7 @@ list_dealloc(PyListObject *op)
 &lt;/blockquote&gt;
 &lt;p&gt;看到这句话,脑海中突然出现了一个画面,很温暖,我的固定型思维人格牵着我的手把我交到成长型思维人格的手里,然后对我笑得很开心,然后注视着我和成长型思维人格继续前行,他在后方渐渐成了一个点直到看不见,但是她在我心里,如果我的围城被改造好了,她或许会沉睡下去,但是我想她也会喜欢面朝大海,春暖花开的好风景,那样舒适的环境,她会睡得更舒服一些.&lt;/p&gt;
 &lt;p&gt;就从现在开始,开始改变吧,别担心,都能解决.&lt;/p&gt;
-">终将与她道一声再见</a>
+">《终身成长》读书笔记</a>
       </div>
       
       <div class="item">
