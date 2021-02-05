@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://usergwen.github.io</id>
     <title>春风不语</title>
-    <updated>2021-02-05T10:12:34.103Z</updated>
+    <updated>2021-02-05T14:25:32.977Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://usergwen.github.io"/>
     <link rel="self" href="https://usergwen.github.io/atom.xml"/>
@@ -11,7 +11,21 @@
     <icon>https://usergwen.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 春风不语</rights>
     <entry>
-        <title type="html"><![CDATA[《测试开发技术体系》第一篇：技术栈规划]]></title>
+        <title type="html"><![CDATA[《测试开发技术总结》第三篇：Python基础语法（二）]]></title>
+        <id>https://usergwen.github.io/zkClof-Qz/</id>
+        <link href="https://usergwen.github.io/zkClof-Qz/">
+        </link>
+        <updated>2021-02-05T12:13:49.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《测试开发技术总结》第二篇：Python基础语法（一）]]></title>
+        <id>https://usergwen.github.io/4madmRyGa/</id>
+        <link href="https://usergwen.github.io/4madmRyGa/">
+        </link>
+        <updated>2021-02-05T10:35:36.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《测试开发技术总结》第一篇：技术栈规划]]></title>
         <id>https://usergwen.github.io/l_hk3ZPK6/</id>
         <link href="https://usergwen.github.io/l_hk3ZPK6/">
         </link>

@@ -8,7 +8,7 @@
 <meta name="keywords" content="春风不语">
 <meta name="description" content="遇事不决，可问春风。">
 <meta name="theme-color" content="#000">
-<title>《Python源码阅读》之 listobject | 春风不语</title>
+<title>《测试开发技术总结》第三篇：Python基础语法（二） | 春风不语</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1612535127073">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -48,8 +48,8 @@
 
 
 
-  <meta name="description" content="《Python源码阅读》之 listobject" />
-  <meta name="keywords" content="python3" />
+  <meta name="description" content="《测试开发技术总结》第三篇：Python基础语法（二）" />
+  <meta name="keywords" content="SDET" />
 </head>
 
 <body>
@@ -180,18 +180,38 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%80-python%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-list">一、Python源码阅读 - List</a>
+<li><a href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">写在前面</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%92%8C%E5%85%83%E7%BB%84">列表和元组</a>
 <ul>
-<li><a href="#1-%E6%BA%90%E7%A0%81%E4%BD%8D%E7%BD%AE">1. 源码位置</a></li>
-<li><a href="#2-pylistobject%E7%9A%84%E5%87%BD%E6%95%B0">2. <code>PyListObject</code>的函数</a></li>
-<li><a href="#3-pylistobject%E7%9A%84%E5%AE%9A%E4%B9%89">3. <code>PyListObject</code>的定义</a></li>
-<li><a href="#3-pylistobject%E7%9A%84%E5%88%9B%E5%BB%BA">3. <code>PyListObject</code>的创建</a></li>
-<li><a href="#4-pylist_setitem">4. <code>PyList_SetItem</code></a></li>
-<li><a href="#5-pylist_insert">5. <code>PyList_Insert</code></a></li>
-<li><a href="#6-pylist_append">6. <code>PyList_Append</code></a></li>
-<li><a href="#7-list_remove">7. <code>list_remove</code></a></li>
-<li><a href="#8-list_pop">8. <code>list_pop</code></a></li>
-<li><a href="#9-list_dealloc">9. <code>list_dealloc</code></a></li>
+<li><a href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97">斐波那契数列</a></li>
+<li><a href="#%E6%89%BE%E5%87%BA%E5%88%97%E8%A1%A8%E4%B8%AD%E6%89%80%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0">找出列表中所有重复元素</a></li>
+<li><a href="#%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E4%B8%AD%E6%98%AF%E5%90%A6%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0">判断列表中是否有重复元素</a></li>
+<li><a href="#%E6%B1%82%E5%88%97%E8%A1%A8%E8%A1%A8%E5%A4%B4">求列表表头</a></li>
+<li><a href="#%E6%B1%82%E5%88%97%E8%A1%A8%E5%B0%BE%E9%83%A8">求列表尾部</a></li>
+<li><a href="#%E6%89%BE%E5%87%BA%E5%88%97%E8%A1%A8%E4%B8%AD%E6%9B%B4%E9%95%BF%E7%9A%84%E9%82%A3%E4%B8%AA">找出列表中更长的那个</a></li>
+<li><a href="#%E6%89%BE%E5%87%BA%E5%88%97%E8%A1%A8%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84%E5%85%83%E7%B4%A0">找出列表中出现次数最多的元素</a></li>
+<li><a href="#%E7%94%9F%E6%88%90%E7%9B%B8%E9%82%BB%E7%9A%84%E5%85%83%E7%B4%A0%E5%AF%B9">生成相邻的元素对</a></li>
+<li><a href="#%E5%88%97%E8%A1%A8%E5%8F%8D%E8%BD%AC">列表反转</a></li>
+</ul>
+</li>
+<li><a href="#%E5%88%97%E8%A1%A8%E7%94%9F%E6%88%90%E5%BC%8F">列表生成式</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%86%8D%E8%BF%90%E7%AE%97">数据再运算</a></li>
+<li><a href="#%E9%81%8D%E5%8E%86%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8">遍历文件列表</a></li>
+<li><a href="#%E7%AD%9B%E5%8E%BB%E5%88%97%E8%A1%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E5%8F%AA%E4%BF%9D%E7%95%99%E5%94%AF%E4%B8%80%E5%80%BC">筛去列表重复元素只保留唯一值</a></li>
+<li><a href="#%E7%AD%9B%E9%80%89%E5%B9%B6%E5%88%86%E7%BB%84%E6%95%B0%E6%8D%AE">筛选并分组数据</a></li>
+<li><a href="#for%E5%BE%AA%E7%8E%AF%E5%B5%8C%E5%A5%97">for循环嵌套</a></li>
+<li><a href="#for%E5%92%8Cif%E5%B5%8C%E5%A5%97">for和if嵌套</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88">字典和集合</a>
+<ul>
+<li><a href="#%E5%AD%97%E5%85%B8%E7%9A%84%E5%B7%AE%E9%9B%86">字典的差集</a></li>
+<li><a href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E9%94%AE%E5%AF%B9%E5%BA%94%E5%A4%9A%E4%B8%AA%E5%80%BC%E7%9A%84%E5%AD%97%E5%85%B8">生成一个键对应多个值的字典</a></li>
+<li><a href="#%E6%89%BE%E5%87%BA%E5%AD%97%E5%85%B8%E5%89%8Dn%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%80%BC%E5%AF%B9%E5%BA%94%E7%9A%84%E9%94%AE">找出字典前n个最大值，对应的键</a></li>
+<li><a href="#%E6%8C%89%E7%85%A7%E5%AD%97%E5%85%B8%E7%9A%84%E9%94%AE%E6%88%96%E8%80%85%E5%80%BC%E6%8E%92%E5%BA%8F">按照字典的键或者值排序</a></li>
+<li><a href="#%E6%89%BE%E5%88%B0%E5%AD%97%E5%85%B8%E4%B8%AD%E5%80%BC%E6%9C%80%E5%A4%A7%E7%9A%84%E9%94%AE%E5%80%BC%E5%AF%B9">找到字典中值最大的键值对</a></li>
+<li><a href="#%E6%89%BE%E5%87%BA%E4%B8%A4%E4%B8%AA%E5%88%97%E8%A1%A8%E9%87%8D%E5%8F%A0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84%E5%85%83%E7%B4%A0">找出两个列表重叠次数最多的元素</a></li>
 </ul>
 </li>
 </ul>
@@ -459,8 +479,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://usergwen.github.io/wHrHzHUcH/">
-      《Python源码阅读》之 listobject
+    <a class="post-title-link" href="https://usergwen.github.io/zkClof-Qz/">
+      《测试开发技术总结》第三篇：Python基础语法（二）
     </a>
   </h1>
   <div class="post-meta">
@@ -468,7 +488,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-01-25 10:09:35">2021-01-25</span>
+      <span class="publish-time" data-t="2021-02-05 20:13:49">2021-02-05</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -477,8 +497,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://usergwen.github.io/Lrkb-e4p0/">
-        <span>python3</span>
+      <a href="https://usergwen.github.io/Vkc3OyPjx/">
+        <span>SDET</span>
       </a>
       
       
@@ -487,17 +507,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>6<span class="language" data-lan="minute">分钟</span></span>
+      <span>4<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1224<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>652<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/wHrHzHUcH/" data-flag-title="《Python源码阅读》之 listobject" class="meta-item pc-show leancloud_visitors">
+    <span id="/zkClof-Qz/" data-flag-title="《测试开发技术总结》第三篇：Python基础语法（二）" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -506,275 +526,149 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="一-python源码阅读-list">一、Python源码阅读 - List</h1>
-<h2 id="1-源码位置">1. 源码位置</h2>
-<ul>
-<li><a href="https://github.com/python/cpython/blob/3.9/Include/listobject.h"><code>include/listobject.h</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Include/cpython/listobject.h"><code>Include/cpython/listobject.h</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c"><code>Objects/listobject.c</code></a></li>
-</ul>
-<h2 id="2-pylistobject的函数">2. <code>PyListObject</code>的函数</h2>
-<pre><code class="language-c">// include/listobject.h
-
-/**
-* 分析：
-* 1. PyListObject支持元素的插入，添加，删除等操作
-*   -&gt; PyList_SetItem
-*   -&gt; PyList_Insert
-*   -&gt; PyList_Append
-*   -&gt; PyList_SetSlice
-*   -&gt; PyList_Sort
-*   -&gt; PyList_Reverse
-* 2. 在列表元素中，无一例外存放的都是PyObject *指针，而且PyListObject对象一定是一个可变长对象
-**/
-PyAPI_FUNC(PyObject *) PyList_New(Py_ssize_t size);
-PyAPI_FUNC(Py_ssize_t) PyList_Size(PyObject *);
-
-PyAPI_FUNC(PyObject *) PyList_GetItem(PyObject *, Py_ssize_t);
-PyAPI_FUNC(int) PyList_SetItem(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Insert(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Append(PyObject *, PyObject *);
-
-PyAPI_FUNC(PyObject *) PyList_GetSlice(PyObject *, Py_ssize_t, Py_ssize_t);
-PyAPI_FUNC(int) PyList_SetSlice(PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
-
-PyAPI_FUNC(int) PyList_Sort(PyObject *);
-PyAPI_FUNC(int) PyList_Reverse(PyObject *);
-PyAPI_FUNC(PyObject *) PyList_AsTuple(PyObject *);
+              <h1 id="写在前面">写在前面</h1>
+<p>之前是大概总结了一些知识点，本篇主要是用示例代码切入到实际应用</p>
+<h1 id="列表和元组">列表和元组</h1>
+<h2 id="斐波那契数列">斐波那契数列</h2>
+<pre><code class="language-python">def fibonacci(n):
+    a, b = 1, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
 </code></pre>
-<h2 id="3-pylistobject的定义">3. <code>PyListObject</code>的定义</h2>
-<pre><code class="language-c">// Include/cpython/listobject.h
-typedef struct {
-    // PyListObject 对象的头，有一个ob_size
-    PyObject_VAR_HEAD
-    // ob_item 是指向元素列表的指针，python列表中的list[0]其实就是ob_item[0]
-    PyObject **ob_item;
-    // allocated 数值正是维护元素列表（PyObject*列表）的关键，指针指向了元素列表所在的内存首地址，它正是维护了当前列表可容纳元素总数
-    // 对应ob_size而言，allocated为了避免频繁插入删除预先会申请比实际大小大一些的内存，而ob_size是当前列表已被使用的实际内存大小，这个和python的内存管理策略相关
-    Py_ssize_t allocated;
-} PyListObject;
+<h2 id="找出列表中所有重复元素">找出列表中所有重复元素</h2>
+<pre><code class="language-python">def find_duplicate(lst):
+    ret = []
+    for i in lst:
+        if lst.count(i) &gt; 1:
+            ret.append(i)
+    return ret
 </code></pre>
-<h2 id="3-pylistobject的创建">3. <code>PyListObject</code>的创建</h2>
-<blockquote>
-<p><code>Objects/listobject.c</code></p>
-</blockquote>
-<pre><code class="language-c">// 唯一的创建list的途径
+<h2 id="判断列表中是否有重复元素">判断列表中是否有重复元素</h2>
+<pre><code class="language-python">def is_duplicated(lst):
+    for i in lst:
+        if lst.count(i) &gt; 1:
+            return True
+    return False
 
-/**
-* Python对列表的创建动作分为两部分：
-* 1. PyListObject对象本身
-* 2. PyListObject对象维护的元素列表
-* 这两块分离的内存和ob_item建立联系
-* PyListObject对象被创建之后，会立刻调用size参数创建可维护元素列表，并会初始化每一个元素为NULL
-**/
-PyObject *
-PyList_New(Py_ssize_t size)  // 这个函数接受一个size参数，创建list时可以指定初始元素个数
-{
-    PyListObject *op;
 
-    if (size &lt; 0) {
-        PyErr_BadInternalCall();
-        return NULL;
-    }
-    // 为list对象申请内存
-    if (numfree) {
-        // 缓冲池可用
-        numfree--;
-        op = free_list[numfree];
-        _Py_NewReference((PyObject *)op);
-    } else {
-        // 缓冲池不可用
-        op = PyObject_GC_New(PyListObject, &amp;PyList_Type);
-        if (op == NULL)
-            return NULL;
-    }
-    // 为list维护的元素列表申请内存
-    if (size &lt;= 0)
-        op-&gt;ob_item = NULL;
-    else {
-        // 内存溢出检查
-        op-&gt;ob_item = (PyObject **) PyMem_Calloc(size, sizeof(PyObject *));
-        if (op-&gt;ob_item == NULL) {
-            Py_DECREF(op);
-            return PyErr_NoMemory();
-        }
-    }
-    Py_SET_SIZE(op, size);
-    op-&gt;allocated = size;
-    _PyObject_GC_TRACK(op);
-    return (PyObject *) op;
-}
+def is_duplicated2(lst):
+    return len(lst) != len(set(lst))
 </code></pre>
-<h2 id="4-pylist_setitem">4. <code>PyList_SetItem</code></h2>
-<pre><code class="language-c">// 示例：list[3] = 100
-
-int
-PyList_SetItem(PyObject *op, Py_ssize_t i,
-               PyObject *newitem)
-{
-    PyObject **p;
-    // 索引检查
-    if (!PyList_Check(op)) {
-        Py_XDECREF(newitem);
-        PyErr_BadInternalCall();
-        return -1;
-    }
-    // 设置元素
-    if (!valid_index(i, Py_SIZE(op))) {
-        Py_XDECREF(newitem);
-        PyErr_SetString(PyExc_IndexError,
-                        &quot;list assignment index out of range&quot;);
-        return -1;
-    }
-    p = ((PyListObject *)op) -&gt; ob_item + i;
-    Py_XSETREF(*p, newitem);
-    return 0;
-}
+<h2 id="求列表表头">求列表表头</h2>
+<pre><code class="language-python">def list_head(lst):
+    return lst[0] if len(lst) &gt; 0 else None
 </code></pre>
-<h2 id="5-pylist_insert">5. <code>PyList_Insert</code></h2>
-<pre><code class="language-c">// 示例：list.insert(3, 101)
-int
-PyList_Insert(PyObject *op, Py_ssize_t where, PyObject *newitem)
-{
-    if (!PyList_Check(op)) {
-        PyErr_BadInternalCall();
-        return -1;
-    }
-    // 类型检查
-    return ins1((PyListObject *)op, where, newitem);
-}
-
-static int
-app1(PyListObject *self, PyObject *v)
-{
-    Py_ssize_t n = PyList_GET_SIZE(self);
-
-    assert (v != NULL);
-    // 调整内存容量
-    if (n == PY_SSIZE_T_MAX) {
-        PyErr_SetString(PyExc_OverflowError,
-            &quot;cannot add more objects to list&quot;);
-        return -1;
-    }
-    // list_resize函数会判断是否重新申请内存(包括申请大小)，支持扩展列表
-    if (list_resize(self, n+1) &lt; 0)
-        return -1;
-    // 确定插入点并插入元素
-    Py_INCREF(v);
-    PyList_SET_ITEM(self, n, v);
-    return 0;
-}
+<h2 id="求列表尾部">求列表尾部</h2>
+<pre><code class="language-python">def list_tail(lst):
+    return lst[-1] if len(lst) &gt; 0 else None
 </code></pre>
-<h2 id="6-pylist_append">6. <code>PyList_Append</code></h2>
-<pre><code class="language-c">// 示例：list.append(102)
-
-// 与insert类似的
-int
-PyList_Append(PyObject *op, PyObject *newitem)
-{
-    if (PyList_Check(op) &amp;&amp; (newitem != NULL))
-        // 在list末尾插入元素
-        return app1((PyListObject *)op, newitem);
-    PyErr_BadInternalCall();
-    return -1;
-}
+<h2 id="找出列表中更长的那个">找出列表中更长的那个</h2>
+<pre><code class="language-python">def max_len(*lst):
+    return max(*lst, key=lambda v: len(v))
 </code></pre>
-<h2 id="7-list_remove">7. <code>list_remove</code></h2>
-<pre><code class="language-c">// 示例：list.remove(102)
-static PyObject *
-list_remove(PyListObject *self, PyObject *value)
-/*[clinic end generated code: output=f087e1951a5e30d1 input=2dc2ba5bb2fb1f82]*/
-{
-    Py_ssize_t i;
+<h2 id="找出列表中出现次数最多的元素">找出列表中出现次数最多的元素</h2>
+<pre><code class="language-python">def mode(lst):
+    if not lst:
+        return None
+    return max(lst, key=lambda v: lst.count(v))
 
-    for (i = 0; i &lt; Py_SIZE(self); i++) {
-        PyObject *obj = self-&gt;ob_item[i];
-        Py_INCREF(obj);
-        // 比较list中的元素和待删除元素
-        int cmp = PyObject_RichCompareBool(obj, value, Py_EQ);
-        Py_DECREF(obj);
-        if (cmp &gt; 0) {
-            // 遍历结束会调用list_ass_slice函数执行删除操作
-            if (list_ass_slice(self, i, i+1,
-                               (PyObject *)NULL) == 0)
-                Py_RETURN_NONE;
-            return NULL;
-        }
-        else if (cmp &lt; 0)
-            return NULL;
-    }
-    PyErr_SetString(PyExc_ValueError, &quot;list.remove(x): x not in list&quot;);
-    return NULL;
-}
-</code></pre>
-<h2 id="8-list_pop">8. <code>list_pop</code></h2>
-<pre><code class="language-c">// 示例：list.pop(1)
-// 指定索引值删除，默认是弹出最后一个元素
 
-static PyObject *
-list_pop_impl(PyListObject *self, Py_ssize_t index)
-{
-    PyObject *v;
-    int status;
+def mode_more(lst):
+    if not lst:
+        return None
     
-    // 索引检查
-    if (Py_SIZE(self) == 0) {
-        PyErr_SetString(PyExc_IndexError, &quot;pop from empty list&quot;);
-        return NULL;
-    }
-    if (index &lt; 0)
-        index += Py_SIZE(self);
-    if (!valid_index(index, Py_SIZE(self))) {
-        PyErr_SetString(PyExc_IndexError, &quot;pop index out of range&quot;);
-        return NULL;
-    }
-    // 调整内存
-    v = self-&gt;ob_item[index];
-    if (index == Py_SIZE(self) - 1) {
-        status = list_resize(self, Py_SIZE(self) - 1);
-        if (status &gt;= 0)
-            return v; 
-        else
-            return NULL;
-    }
-    Py_INCREF(v);
-    status = list_ass_slice(self, index, index+1, (PyObject *)NULL);
-    if (status &lt; 0) {
-        Py_DECREF(v);
-        return NULL;
-    }
-    return v;
-}
+    max_freq_elem = max(lst, key=lambda v: lst.count(v))
+    max_freq = lst.count(max_freq_elem)
+    
+    ret = []
 </code></pre>
-<h2 id="9-list_dealloc">9. <code>list_dealloc</code></h2>
-<pre><code class="language-c">// 最后，看一下PyListObject对象缓冲池
-// 也就是一个PyListObject对象被销毁的过程，在最开始的定义对象的时候，就知道对象本身和维护元素内存分离，所以销毁也是分离的
-static void
-list_dealloc(PyListObject *op)
-{
-    Py_ssize_t i;
-    PyObject_GC_UnTrack(op);
-    Py_TRASHCAN_BEGIN(op, list_dealloc)
-    // 销毁维护元素列表
-    if (op-&gt;ob_item != NULL) {
-        i = Py_SIZE(op);
-        while (--i &gt;= 0) {
-            Py_XDECREF(op-&gt;ob_item[i]);
-        }
-        PyMem_FREE(op-&gt;ob_item);
-    }
-    // 销毁对象本身，这个时候会先检查缓存对象数量是否已满，未满就把这个对象放到缓存中
-    // 所以，后续创建新的list会先从缓存中激活这些被放入的对象，而不是重新创建新的对象
-    if (numfree &lt; PyList_MAXFREELIST &amp;&amp; PyList_CheckExact(op))
-        free_list[numfree++] = op;
-    else
-        Py_TYPE(op)-&gt;tp_free((PyObject *)op);
-    Py_TRASHCAN_END
-}
+<h2 id="生成相邻的元素对">生成相邻的元素对</h2>
+<pre><code class="language-python">def pair(lst):
+    return list(zip(lst[:-1], lst[1:]))
 </code></pre>
-<blockquote>
-<p>list内容太多了，已经是累了，所以list先到这吧</p>
-</blockquote>
+<h2 id="列表反转">列表反转</h2>
+<pre><code class="language-python">def reverse_list(lst):
+    return lst[::-1]
+
+
+def reverse_list2(lst):
+    return reversed(lst)
+</code></pre>
+<h1 id="列表生成式">列表生成式</h1>
+<h2 id="数据再运算">数据再运算</h2>
+<pre><code class="language-python">lst = range(0, 10)
+lst2 = [x ** 2 for x in lst]
+</code></pre>
+<h2 id="遍历文件列表">遍历文件列表</h2>
+<pre><code class="language-python">from pathlib import Path, PurePath
+
+path = Path(r'/python_points')
+a = [d for d in path.rglog()]
+b = [d for d in path.rglob(&quot;*.py&quot;) if path.is_dir()]
+
+print(a)
+print(b)
+</code></pre>
+<h2 id="筛去列表重复元素只保留唯一值">筛去列表重复元素只保留唯一值</h2>
+<pre><code class="language-python">def filter_non_unique(lst):
+    return [item for item in lst if lst.count(item) == 1]
+</code></pre>
+<h2 id="筛选并分组数据">筛选并分组数据</h2>
+<pre><code class="language-python">def bifurcate(lst, filter):
+    return [
+        [x for i, x in enumerate(lst) if filter[i] == True],
+        [x for i, x in enumerate(lst) if filter[i] == False]
+    ]
+</code></pre>
+<h2 id="for循环嵌套">for循环嵌套</h2>
+<pre><code class="language-python">lst = [i * j for i in range(10) for j in range(1, i + 1)]
+print(lst)
+</code></pre>
+<h2 id="for和if嵌套">for和if嵌套</h2>
+<pre><code class="language-python">lst = range(11)
+lst2 = [x ** 2 for x in lst if x % 2 == 0]
+</code></pre>
+<h1 id="字典和集合">字典和集合</h1>
+<h2 id="字典的差集">字典的差集</h2>
+<pre><code class="language-python">def diff_dict(dic1, dic2):
+    return dict([(k, v) for k, v in dic1.items() if k not in dic2])
+</code></pre>
+<h2 id="生成一个键对应多个值的字典">生成一个键对应多个值的字典</h2>
+<pre><code class="language-python">from collections import defaultdict
+
+lst = [(1, 'apple'), (2, 'orange'), (1, 'compute')]
+d = defaultdict(list)
+for k, v in lst:
+    d[k].append(v)
+print(d.items())
+</code></pre>
+<h2 id="找出字典前n个最大值对应的键">找出字典前n个最大值，对应的键</h2>
+<pre><code class="language-python">from heapq import nlargest
+
+def top_n(d, n):
+    return nlargest(n, d, key=lambda k: d[k])
+</code></pre>
+<h2 id="按照字典的键或者值排序">按照字典的键或者值排序</h2>
+<pre><code class="language-python">def sort_by_key(dic):
+    return sorted(dic.items(), key=lambda x: x[0])
+
+def sort_by_value(dic):
+    return sorted(dic.items(), key=lambda x: x[1])
+</code></pre>
+<h2 id="找到字典中值最大的键值对">找到字典中值最大的键值对</h2>
+<pre><code class="language-python">def max_value(dic):
+    if len(dic) == 0:
+        return []
+    max_val = max(dic.values())
+    return [(key, max_val) for key in dic if dic[key] == max_val]
+</code></pre>
+<h2 id="找出两个列表重叠次数最多的元素">找出两个列表重叠次数最多的元素</h2>
+<pre><code class="language-python">def max_overlap(lst1, lst2):
+    overlap = set(lst1).intersection(lst2)
+    ox = [(x, min(lst1.count(x), lst2.count(x))) for x in overlap]
+    return max(ox, key=lambda x: x[1])
+</code></pre>
 
             </div>
             
@@ -787,7 +681,7 @@ list_dealloc(PyListObject *op)
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://usergwen.github.io/wHrHzHUcH/" title="《Python源码阅读》之 listobject">https://usergwen.github.io/wHrHzHUcH/</a>
+      <a href="https://usergwen.github.io/zkClof-Qz/" title="《测试开发技术总结》第三篇：Python基础语法（二）">https://usergwen.github.io/zkClof-Qz/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -796,21 +690,17 @@ list_dealloc(PyListObject *op)
   </ul>
   <div class="tags">
     
-      <a href="https://usergwen.github.io/Lrkb-e4p0/"># python3</a>
+      <a href="https://usergwen.github.io/Vkc3OyPjx/"># SDET</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="《Python源码阅读》之 dictobject" href="https://usergwen.github.io/CuLQ36g4j/">《Python源码阅读》之 dictobject</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="《Python源码阅读》之 dictobject" href="https://usergwen.github.io/CuLQ36g4j/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="《终身成长》读书笔记" href="https://usergwen.github.io/lqvVkJGES/">《终身成长》读书笔记</a>
-        <a class="nav-mobile-next" title="《终身成长》读书笔记" href="https://usergwen.github.io/lqvVkJGES/">下一篇</a>
+        <a class="nav-pc-next" title="《测试开发技术总结》第二篇：Python基础语法（一）" href="https://usergwen.github.io/4madmRyGa/">《测试开发技术总结》第二篇：Python基础语法（一）</a>
+        <a class="nav-mobile-next" title="《测试开发技术总结》第二篇：Python基础语法（一）" href="https://usergwen.github.io/4madmRyGa/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

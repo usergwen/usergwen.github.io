@@ -8,7 +8,7 @@
 <meta name="keywords" content="春风不语">
 <meta name="description" content="遇事不决，可问春风。">
 <meta name="theme-color" content="#000">
-<title>《Python源码阅读》之 listobject | 春风不语</title>
+<title>《测试开发技术总结》第二篇：Python基础语法（一） | 春风不语</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1612535127073">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -48,8 +48,8 @@
 
 
 
-  <meta name="description" content="《Python源码阅读》之 listobject" />
-  <meta name="keywords" content="python3" />
+  <meta name="description" content="《测试开发技术总结》第二篇：Python基础语法（一）" />
+  <meta name="keywords" content="SDET" />
 </head>
 
 <body>
@@ -180,20 +180,13 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E4%B8%80-python%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-list">一、Python源码阅读 - List</a>
-<ul>
-<li><a href="#1-%E6%BA%90%E7%A0%81%E4%BD%8D%E7%BD%AE">1. 源码位置</a></li>
-<li><a href="#2-pylistobject%E7%9A%84%E5%87%BD%E6%95%B0">2. <code>PyListObject</code>的函数</a></li>
-<li><a href="#3-pylistobject%E7%9A%84%E5%AE%9A%E4%B9%89">3. <code>PyListObject</code>的定义</a></li>
-<li><a href="#3-pylistobject%E7%9A%84%E5%88%9B%E5%BB%BA">3. <code>PyListObject</code>的创建</a></li>
-<li><a href="#4-pylist_setitem">4. <code>PyList_SetItem</code></a></li>
-<li><a href="#5-pylist_insert">5. <code>PyList_Insert</code></a></li>
-<li><a href="#6-pylist_append">6. <code>PyList_Append</code></a></li>
-<li><a href="#7-list_remove">7. <code>list_remove</code></a></li>
-<li><a href="#8-list_pop">8. <code>list_pop</code></a></li>
-<li><a href="#9-list_dealloc">9. <code>list_dealloc</code></a></li>
-</ul>
-</li>
+<li><a href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2">写在前面</a></li>
+<li><a href="#python%E7%9A%84%E4%B8%A4%E5%A4%A7%E7%89%B9%E6%80%A7">Python的两大特性</a></li>
+<li><a href="#python%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">Python的四大基本语法</a></li>
+<li><a href="#python%E7%9A%84%E5%9B%9B%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">Python的四大数据类型</a></li>
+<li><a href="#python%E4%B8%AD%E7%9A%84%E5%88%97%E8%A1%A8%E5%92%8C%E5%85%83%E7%BB%84">Python中的列表和元组</a></li>
+<li><a href="#python%E4%B8%AD%E7%9A%84%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88">Python中的字典和集合</a></li>
+<li><a href="#python%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2">Python中的字符串</a></li>
 </ul>
 
   </div>
@@ -459,8 +452,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://usergwen.github.io/wHrHzHUcH/">
-      《Python源码阅读》之 listobject
+    <a class="post-title-link" href="https://usergwen.github.io/4madmRyGa/">
+      《测试开发技术总结》第二篇：Python基础语法（一）
     </a>
   </h1>
   <div class="post-meta">
@@ -468,7 +461,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2021-01-25 10:09:35">2021-01-25</span>
+      <span class="publish-time" data-t="2021-02-05 18:35:36">2021-02-05</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -477,8 +470,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://usergwen.github.io/Lrkb-e4p0/">
-        <span>python3</span>
+      <a href="https://usergwen.github.io/Vkc3OyPjx/">
+        <span>SDET</span>
       </a>
       
       
@@ -487,17 +480,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>6<span class="language" data-lan="minute">分钟</span></span>
+      <span>1<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>1224<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>66<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/wHrHzHUcH/" data-flag-title="《Python源码阅读》之 listobject" class="meta-item pc-show leancloud_visitors">
+    <span id="/4madmRyGa/" data-flag-title="《测试开发技术总结》第二篇：Python基础语法（一）" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -506,275 +499,20 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="一-python源码阅读-list">一、Python源码阅读 - List</h1>
-<h2 id="1-源码位置">1. 源码位置</h2>
-<ul>
-<li><a href="https://github.com/python/cpython/blob/3.9/Include/listobject.h"><code>include/listobject.h</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Include/cpython/listobject.h"><code>Include/cpython/listobject.h</code></a></li>
-<li><a href="https://github.com/python/cpython/blob/3.9/Objects/listobject.c"><code>Objects/listobject.c</code></a></li>
-</ul>
-<h2 id="2-pylistobject的函数">2. <code>PyListObject</code>的函数</h2>
-<pre><code class="language-c">// include/listobject.h
-
-/**
-* 分析：
-* 1. PyListObject支持元素的插入，添加，删除等操作
-*   -&gt; PyList_SetItem
-*   -&gt; PyList_Insert
-*   -&gt; PyList_Append
-*   -&gt; PyList_SetSlice
-*   -&gt; PyList_Sort
-*   -&gt; PyList_Reverse
-* 2. 在列表元素中，无一例外存放的都是PyObject *指针，而且PyListObject对象一定是一个可变长对象
-**/
-PyAPI_FUNC(PyObject *) PyList_New(Py_ssize_t size);
-PyAPI_FUNC(Py_ssize_t) PyList_Size(PyObject *);
-
-PyAPI_FUNC(PyObject *) PyList_GetItem(PyObject *, Py_ssize_t);
-PyAPI_FUNC(int) PyList_SetItem(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Insert(PyObject *, Py_ssize_t, PyObject *);
-PyAPI_FUNC(int) PyList_Append(PyObject *, PyObject *);
-
-PyAPI_FUNC(PyObject *) PyList_GetSlice(PyObject *, Py_ssize_t, Py_ssize_t);
-PyAPI_FUNC(int) PyList_SetSlice(PyObject *, Py_ssize_t, Py_ssize_t, PyObject *);
-
-PyAPI_FUNC(int) PyList_Sort(PyObject *);
-PyAPI_FUNC(int) PyList_Reverse(PyObject *);
-PyAPI_FUNC(PyObject *) PyList_AsTuple(PyObject *);
-</code></pre>
-<h2 id="3-pylistobject的定义">3. <code>PyListObject</code>的定义</h2>
-<pre><code class="language-c">// Include/cpython/listobject.h
-typedef struct {
-    // PyListObject 对象的头，有一个ob_size
-    PyObject_VAR_HEAD
-    // ob_item 是指向元素列表的指针，python列表中的list[0]其实就是ob_item[0]
-    PyObject **ob_item;
-    // allocated 数值正是维护元素列表（PyObject*列表）的关键，指针指向了元素列表所在的内存首地址，它正是维护了当前列表可容纳元素总数
-    // 对应ob_size而言，allocated为了避免频繁插入删除预先会申请比实际大小大一些的内存，而ob_size是当前列表已被使用的实际内存大小，这个和python的内存管理策略相关
-    Py_ssize_t allocated;
-} PyListObject;
-</code></pre>
-<h2 id="3-pylistobject的创建">3. <code>PyListObject</code>的创建</h2>
-<blockquote>
-<p><code>Objects/listobject.c</code></p>
-</blockquote>
-<pre><code class="language-c">// 唯一的创建list的途径
-
-/**
-* Python对列表的创建动作分为两部分：
-* 1. PyListObject对象本身
-* 2. PyListObject对象维护的元素列表
-* 这两块分离的内存和ob_item建立联系
-* PyListObject对象被创建之后，会立刻调用size参数创建可维护元素列表，并会初始化每一个元素为NULL
-**/
-PyObject *
-PyList_New(Py_ssize_t size)  // 这个函数接受一个size参数，创建list时可以指定初始元素个数
-{
-    PyListObject *op;
-
-    if (size &lt; 0) {
-        PyErr_BadInternalCall();
-        return NULL;
-    }
-    // 为list对象申请内存
-    if (numfree) {
-        // 缓冲池可用
-        numfree--;
-        op = free_list[numfree];
-        _Py_NewReference((PyObject *)op);
-    } else {
-        // 缓冲池不可用
-        op = PyObject_GC_New(PyListObject, &amp;PyList_Type);
-        if (op == NULL)
-            return NULL;
-    }
-    // 为list维护的元素列表申请内存
-    if (size &lt;= 0)
-        op-&gt;ob_item = NULL;
-    else {
-        // 内存溢出检查
-        op-&gt;ob_item = (PyObject **) PyMem_Calloc(size, sizeof(PyObject *));
-        if (op-&gt;ob_item == NULL) {
-            Py_DECREF(op);
-            return PyErr_NoMemory();
-        }
-    }
-    Py_SET_SIZE(op, size);
-    op-&gt;allocated = size;
-    _PyObject_GC_TRACK(op);
-    return (PyObject *) op;
-}
-</code></pre>
-<h2 id="4-pylist_setitem">4. <code>PyList_SetItem</code></h2>
-<pre><code class="language-c">// 示例：list[3] = 100
-
-int
-PyList_SetItem(PyObject *op, Py_ssize_t i,
-               PyObject *newitem)
-{
-    PyObject **p;
-    // 索引检查
-    if (!PyList_Check(op)) {
-        Py_XDECREF(newitem);
-        PyErr_BadInternalCall();
-        return -1;
-    }
-    // 设置元素
-    if (!valid_index(i, Py_SIZE(op))) {
-        Py_XDECREF(newitem);
-        PyErr_SetString(PyExc_IndexError,
-                        &quot;list assignment index out of range&quot;);
-        return -1;
-    }
-    p = ((PyListObject *)op) -&gt; ob_item + i;
-    Py_XSETREF(*p, newitem);
-    return 0;
-}
-</code></pre>
-<h2 id="5-pylist_insert">5. <code>PyList_Insert</code></h2>
-<pre><code class="language-c">// 示例：list.insert(3, 101)
-int
-PyList_Insert(PyObject *op, Py_ssize_t where, PyObject *newitem)
-{
-    if (!PyList_Check(op)) {
-        PyErr_BadInternalCall();
-        return -1;
-    }
-    // 类型检查
-    return ins1((PyListObject *)op, where, newitem);
-}
-
-static int
-app1(PyListObject *self, PyObject *v)
-{
-    Py_ssize_t n = PyList_GET_SIZE(self);
-
-    assert (v != NULL);
-    // 调整内存容量
-    if (n == PY_SSIZE_T_MAX) {
-        PyErr_SetString(PyExc_OverflowError,
-            &quot;cannot add more objects to list&quot;);
-        return -1;
-    }
-    // list_resize函数会判断是否重新申请内存(包括申请大小)，支持扩展列表
-    if (list_resize(self, n+1) &lt; 0)
-        return -1;
-    // 确定插入点并插入元素
-    Py_INCREF(v);
-    PyList_SET_ITEM(self, n, v);
-    return 0;
-}
-</code></pre>
-<h2 id="6-pylist_append">6. <code>PyList_Append</code></h2>
-<pre><code class="language-c">// 示例：list.append(102)
-
-// 与insert类似的
-int
-PyList_Append(PyObject *op, PyObject *newitem)
-{
-    if (PyList_Check(op) &amp;&amp; (newitem != NULL))
-        // 在list末尾插入元素
-        return app1((PyListObject *)op, newitem);
-    PyErr_BadInternalCall();
-    return -1;
-}
-</code></pre>
-<h2 id="7-list_remove">7. <code>list_remove</code></h2>
-<pre><code class="language-c">// 示例：list.remove(102)
-static PyObject *
-list_remove(PyListObject *self, PyObject *value)
-/*[clinic end generated code: output=f087e1951a5e30d1 input=2dc2ba5bb2fb1f82]*/
-{
-    Py_ssize_t i;
-
-    for (i = 0; i &lt; Py_SIZE(self); i++) {
-        PyObject *obj = self-&gt;ob_item[i];
-        Py_INCREF(obj);
-        // 比较list中的元素和待删除元素
-        int cmp = PyObject_RichCompareBool(obj, value, Py_EQ);
-        Py_DECREF(obj);
-        if (cmp &gt; 0) {
-            // 遍历结束会调用list_ass_slice函数执行删除操作
-            if (list_ass_slice(self, i, i+1,
-                               (PyObject *)NULL) == 0)
-                Py_RETURN_NONE;
-            return NULL;
-        }
-        else if (cmp &lt; 0)
-            return NULL;
-    }
-    PyErr_SetString(PyExc_ValueError, &quot;list.remove(x): x not in list&quot;);
-    return NULL;
-}
-</code></pre>
-<h2 id="8-list_pop">8. <code>list_pop</code></h2>
-<pre><code class="language-c">// 示例：list.pop(1)
-// 指定索引值删除，默认是弹出最后一个元素
-
-static PyObject *
-list_pop_impl(PyListObject *self, Py_ssize_t index)
-{
-    PyObject *v;
-    int status;
-    
-    // 索引检查
-    if (Py_SIZE(self) == 0) {
-        PyErr_SetString(PyExc_IndexError, &quot;pop from empty list&quot;);
-        return NULL;
-    }
-    if (index &lt; 0)
-        index += Py_SIZE(self);
-    if (!valid_index(index, Py_SIZE(self))) {
-        PyErr_SetString(PyExc_IndexError, &quot;pop index out of range&quot;);
-        return NULL;
-    }
-    // 调整内存
-    v = self-&gt;ob_item[index];
-    if (index == Py_SIZE(self) - 1) {
-        status = list_resize(self, Py_SIZE(self) - 1);
-        if (status &gt;= 0)
-            return v; 
-        else
-            return NULL;
-    }
-    Py_INCREF(v);
-    status = list_ass_slice(self, index, index+1, (PyObject *)NULL);
-    if (status &lt; 0) {
-        Py_DECREF(v);
-        return NULL;
-    }
-    return v;
-}
-</code></pre>
-<h2 id="9-list_dealloc">9. <code>list_dealloc</code></h2>
-<pre><code class="language-c">// 最后，看一下PyListObject对象缓冲池
-// 也就是一个PyListObject对象被销毁的过程，在最开始的定义对象的时候，就知道对象本身和维护元素内存分离，所以销毁也是分离的
-static void
-list_dealloc(PyListObject *op)
-{
-    Py_ssize_t i;
-    PyObject_GC_UnTrack(op);
-    Py_TRASHCAN_BEGIN(op, list_dealloc)
-    // 销毁维护元素列表
-    if (op-&gt;ob_item != NULL) {
-        i = Py_SIZE(op);
-        while (--i &gt;= 0) {
-            Py_XDECREF(op-&gt;ob_item[i]);
-        }
-        PyMem_FREE(op-&gt;ob_item);
-    }
-    // 销毁对象本身，这个时候会先检查缓存对象数量是否已满，未满就把这个对象放到缓存中
-    // 所以，后续创建新的list会先从缓存中激活这些被放入的对象，而不是重新创建新的对象
-    if (numfree &lt; PyList_MAXFREELIST &amp;&amp; PyList_CheckExact(op))
-        free_list[numfree++] = op;
-    else
-        Py_TYPE(op)-&gt;tp_free((PyObject *)op);
-    Py_TRASHCAN_END
-}
-</code></pre>
-<blockquote>
-<p>list内容太多了，已经是累了，所以list先到这吧</p>
-</blockquote>
+              <h1 id="写在前面">写在前面</h1>
+<p>思维导图的形式，总结一下基础的语法知识</p>
+<h1 id="python的两大特性">Python的两大特性</h1>
+<figure data-type="image" tabindex="1"><img src="https://usergwen.github.io/post-images/1612521966693.png" alt="" loading="lazy"></figure>
+<h1 id="python的四大基本语法">Python的四大基本语法</h1>
+<figure data-type="image" tabindex="2"><img src="https://usergwen.github.io/post-images/1612523103491.png" alt="" loading="lazy"></figure>
+<h1 id="python的四大数据类型">Python的四大数据类型</h1>
+<figure data-type="image" tabindex="3"><img src="https://usergwen.github.io/post-images/1612524743480.png" alt="" loading="lazy"></figure>
+<h1 id="python中的列表和元组">Python中的列表和元组</h1>
+<figure data-type="image" tabindex="4"><img src="https://usergwen.github.io/post-images/1612526031524.png" alt="" loading="lazy"></figure>
+<h1 id="python中的字典和集合">Python中的字典和集合</h1>
+<figure data-type="image" tabindex="5"><img src="https://usergwen.github.io/post-images/1612526673323.png" alt="" loading="lazy"></figure>
+<h1 id="python中的字符串">Python中的字符串</h1>
+<figure data-type="image" tabindex="6"><img src="https://usergwen.github.io/post-images/1612527155620.png" alt="" loading="lazy"></figure>
 
             </div>
             
@@ -787,7 +525,7 @@ list_dealloc(PyListObject *op)
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://usergwen.github.io/wHrHzHUcH/" title="《Python源码阅读》之 listobject">https://usergwen.github.io/wHrHzHUcH/</a>
+      <a href="https://usergwen.github.io/4madmRyGa/" title="《测试开发技术总结》第二篇：Python基础语法（一）">https://usergwen.github.io/4madmRyGa/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -796,21 +534,21 @@ list_dealloc(PyListObject *op)
   </ul>
   <div class="tags">
     
-      <a href="https://usergwen.github.io/Lrkb-e4p0/"># python3</a>
+      <a href="https://usergwen.github.io/Vkc3OyPjx/"># SDET</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="《Python源码阅读》之 dictobject" href="https://usergwen.github.io/CuLQ36g4j/">《Python源码阅读》之 dictobject</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="《Python源码阅读》之 dictobject" href="https://usergwen.github.io/CuLQ36g4j/">上一篇</a>
+        <a class="nav-pc-next" title="《测试开发技术总结》第三篇：Python基础语法（二）" href="https://usergwen.github.io/zkClof-Qz/">《测试开发技术总结》第三篇：Python基础语法（二）</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="《测试开发技术总结》第三篇：Python基础语法（二）" href="https://usergwen.github.io/zkClof-Qz/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="《终身成长》读书笔记" href="https://usergwen.github.io/lqvVkJGES/">《终身成长》读书笔记</a>
-        <a class="nav-mobile-next" title="《终身成长》读书笔记" href="https://usergwen.github.io/lqvVkJGES/">下一篇</a>
+        <a class="nav-pc-next" title="《测试开发技术总结》第一篇：技术栈规划" href="https://usergwen.github.io/l_hk3ZPK6/">《测试开发技术总结》第一篇：技术栈规划</a>
+        <a class="nav-mobile-next" title="《测试开发技术总结》第一篇：技术栈规划" href="https://usergwen.github.io/l_hk3ZPK6/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

@@ -9,7 +9,7 @@
 <meta name="description" content="遇事不决，可问春风。">
 <meta name="theme-color" content="#000">
 <title>春风不语</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1612519950389">
+<link rel="shortcut icon" href="/favicon.ico?v=1612535127073">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -176,7 +176,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">5</span>
+        <span class="site-item-stat-count">7</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -236,6 +236,14 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       
@@ -492,6 +500,173 @@
     <div class="result" id="result">
       
       <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/zkClof-Qz/"" data-c="
+          &lt;h1 id=&#34;写在前面&#34;&gt;写在前面&lt;/h1&gt;
+&lt;p&gt;之前是大概总结了一些知识点，本篇主要是用示例代码切入到实际应用&lt;/p&gt;
+&lt;h1 id=&#34;列表和元组&#34;&gt;列表和元组&lt;/h1&gt;
+&lt;h2 id=&#34;斐波那契数列&#34;&gt;斐波那契数列&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def fibonacci(n):
+    a, b = 1, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;找出列表中所有重复元素&#34;&gt;找出列表中所有重复元素&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def find_duplicate(lst):
+    ret = []
+    for i in lst:
+        if lst.count(i) &amp;gt; 1:
+            ret.append(i)
+    return ret
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;判断列表中是否有重复元素&#34;&gt;判断列表中是否有重复元素&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def is_duplicated(lst):
+    for i in lst:
+        if lst.count(i) &amp;gt; 1:
+            return True
+    return False
+
+
+def is_duplicated2(lst):
+    return len(lst) != len(set(lst))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;求列表表头&#34;&gt;求列表表头&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def list_head(lst):
+    return lst[0] if len(lst) &amp;gt; 0 else None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;求列表尾部&#34;&gt;求列表尾部&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def list_tail(lst):
+    return lst[-1] if len(lst) &amp;gt; 0 else None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;找出列表中更长的那个&#34;&gt;找出列表中更长的那个&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def max_len(*lst):
+    return max(*lst, key=lambda v: len(v))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;找出列表中出现次数最多的元素&#34;&gt;找出列表中出现次数最多的元素&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def mode(lst):
+    if not lst:
+        return None
+    return max(lst, key=lambda v: lst.count(v))
+
+
+def mode_more(lst):
+    if not lst:
+        return None
+    
+    max_freq_elem = max(lst, key=lambda v: lst.count(v))
+    max_freq = lst.count(max_freq_elem)
+    
+    ret = []
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;生成相邻的元素对&#34;&gt;生成相邻的元素对&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def pair(lst):
+    return list(zip(lst[:-1], lst[1:]))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;列表反转&#34;&gt;列表反转&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def reverse_list(lst):
+    return lst[::-1]
+
+
+def reverse_list2(lst):
+    return reversed(lst)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;列表生成式&#34;&gt;列表生成式&lt;/h1&gt;
+&lt;h2 id=&#34;数据再运算&#34;&gt;数据再运算&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;lst = range(0, 10)
+lst2 = [x ** 2 for x in lst]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;遍历文件列表&#34;&gt;遍历文件列表&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from pathlib import Path, PurePath
+
+path = Path(r&#39;/python_points&#39;)
+a = [d for d in path.rglog()]
+b = [d for d in path.rglob(&amp;quot;*.py&amp;quot;) if path.is_dir()]
+
+print(a)
+print(b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;筛去列表重复元素只保留唯一值&#34;&gt;筛去列表重复元素只保留唯一值&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def filter_non_unique(lst):
+    return [item for item in lst if lst.count(item) == 1]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;筛选并分组数据&#34;&gt;筛选并分组数据&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def bifurcate(lst, filter):
+    return [
+        [x for i, x in enumerate(lst) if filter[i] == True],
+        [x for i, x in enumerate(lst) if filter[i] == False]
+    ]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;for循环嵌套&#34;&gt;for循环嵌套&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;lst = [i * j for i in range(10) for j in range(1, i + 1)]
+print(lst)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;for和if嵌套&#34;&gt;for和if嵌套&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;lst = range(11)
+lst2 = [x ** 2 for x in lst if x % 2 == 0]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;字典和集合&#34;&gt;字典和集合&lt;/h1&gt;
+&lt;h2 id=&#34;字典的差集&#34;&gt;字典的差集&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def diff_dict(dic1, dic2):
+    return dict([(k, v) for k, v in dic1.items() if k not in dic2])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;生成一个键对应多个值的字典&#34;&gt;生成一个键对应多个值的字典&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from collections import defaultdict
+
+lst = [(1, &#39;apple&#39;), (2, &#39;orange&#39;), (1, &#39;compute&#39;)]
+d = defaultdict(list)
+for k, v in lst:
+    d[k].append(v)
+print(d.items())
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;找出字典前n个最大值对应的键&#34;&gt;找出字典前n个最大值，对应的键&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from heapq import nlargest
+
+def top_n(d, n):
+    return nlargest(n, d, key=lambda k: d[k])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;按照字典的键或者值排序&#34;&gt;按照字典的键或者值排序&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def sort_by_key(dic):
+    return sorted(dic.items(), key=lambda x: x[0])
+
+def sort_by_value(dic):
+    return sorted(dic.items(), key=lambda x: x[1])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;找到字典中值最大的键值对&#34;&gt;找到字典中值最大的键值对&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def max_value(dic):
+    if len(dic) == 0:
+        return []
+    max_val = max(dic.values())
+    return [(key, max_val) for key in dic if dic[key] == max_val]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;找出两个列表重叠次数最多的元素&#34;&gt;找出两个列表重叠次数最多的元素&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def max_overlap(lst1, lst2):
+    overlap = set(lst1).intersection(lst2)
+    ox = [(x, min(lst1.count(x), lst2.count(x))) for x in overlap]
+    return max(ox, key=lambda x: x[1])
+&lt;/code&gt;&lt;/pre&gt;
+">《测试开发技术总结》第三篇：Python基础语法（二）</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/4madmRyGa/"" data-c="
+          &lt;h1 id=&#34;写在前面&#34;&gt;写在前面&lt;/h1&gt;
+&lt;p&gt;思维导图的形式，总结一下基础的语法知识&lt;/p&gt;
+&lt;h1 id=&#34;python的两大特性&#34;&gt;Python的两大特性&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://usergwen.github.io/post-images/1612521966693.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;python的四大基本语法&#34;&gt;Python的四大基本语法&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://usergwen.github.io/post-images/1612523103491.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;python的四大数据类型&#34;&gt;Python的四大数据类型&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;3&#34;&gt;&lt;img src=&#34;https://usergwen.github.io/post-images/1612524743480.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;python中的列表和元组&#34;&gt;Python中的列表和元组&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;4&#34;&gt;&lt;img src=&#34;https://usergwen.github.io/post-images/1612526031524.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;python中的字典和集合&#34;&gt;Python中的字典和集合&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;5&#34;&gt;&lt;img src=&#34;https://usergwen.github.io/post-images/1612526673323.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;python中的字符串&#34;&gt;Python中的字符串&lt;/h1&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;6&#34;&gt;&lt;img src=&#34;https://usergwen.github.io/post-images/1612527155620.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+">《测试开发技术总结》第二篇：Python基础语法（一）</a>
+      </div>
+      
+      <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://usergwen.github.io/l_hk3ZPK6/"" data-c="
           &lt;h1 id=&#34;写在前面&#34;&gt;写在前面&lt;/h1&gt;
 &lt;p&gt;趁着要在年后面试，也复习了将近一个月，想着还有几天除夕了，打算除夕前把这段时间的知识总结一下，开篇大概讲一下我对自己的技术栈的规划，还是那句话，找到适合自己的语言和工具，才能在工作中事半功倍，不管是完成工作任务，还是适应公司的技术栈。能够抓住重点，站在测试开发的角度上，从广度搜索中找到值得深度搜索的方向。&lt;/p&gt;
@@ -567,7 +742,7 @@
 &lt;li&gt;docker/k8s&lt;/li&gt;
 &lt;li&gt;DevOps&lt;/li&gt;
 &lt;/ul&gt;
-">《测试开发技术体系》第一篇：技术栈规划</a>
+">《测试开发技术总结》第一篇：技术栈规划</a>
       </div>
       
       <div class="item">
