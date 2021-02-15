@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://usergwen.github.io</id>
     <title>春风不语</title>
-    <updated>2021-02-06T06:07:03.660Z</updated>
+    <updated>2021-02-15T10:14:18.991Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://usergwen.github.io"/>
     <link rel="self" href="https://usergwen.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://usergwen.github.io/images/avatar.png</logo>
     <icon>https://usergwen.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 春风不语</rights>
+    <entry>
+        <title type="html"><![CDATA[《测试开发技术总结》第六篇：SQL基础知识（二）]]></title>
+        <id>https://usergwen.github.io/M9FqTUcly/</id>
+        <link href="https://usergwen.github.io/M9FqTUcly/">
+        </link>
+        <updated>2021-02-15T09:44:05.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[《测试开发技术总结》第五篇：SQL基础知识（一）]]></title>
+        <id>https://usergwen.github.io/pl8CIRuuZ/</id>
+        <link href="https://usergwen.github.io/pl8CIRuuZ/">
+        </link>
+        <updated>2021-02-06T08:37:53.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[《测试开发技术总结》第四篇：Python基础语法（三）]]></title>
         <id>https://usergwen.github.io/lesslessce-shi-kai-fa-ji-zhu-zong-jie-greatergreater-di-si-pian-python-ji-chu-yu-fa-san/</id>
